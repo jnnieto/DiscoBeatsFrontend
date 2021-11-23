@@ -1,1 +1,101 @@
-<p>register works!</p>
+<section id="wrapper">
+    <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
+        <div class="login-box card">
+            <div class="card-body">
+                <form class="form-horizontal form-material" id="loginform" (ngSubmit)="registrarUsuario()"
+                        autocomplete="off" [formGroup]="registroForm">
+                    <h3 class="box-title m-b-20">Registrarse en DiscoBeats</h3>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" required placeholder="Nombre de usuario" formControlName="nombreUsuario">
+                            <div class="col text-danger">
+                                <small *ngIf="registroForm.controls.nombreUsuario.hasError('required') 
+                                    && (registroForm.controls.nombreUsuario.dirty 
+                                    || registroForm.controls.nombreUsuario.touched)">
+                                    El nombre de usuario es <strong>obligatorio</strong>
+                                </small>
+                                <small *ngIf="registroForm.controls.nombreUsuario.hasError('minlength')">
+                                    El nombre de usuario debe tener mínimo <strong>3 caracteres</strong>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group has-danger">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" placeholder="Correo electrónico" formControlName="correo">
+                        </div>
+                        <div class="col text-danger">
+                            <small class="form-control-feedback" *ngIf="registroForm.controls.correo.hasError('required') 
+                                && (registroForm.controls.correo.dirty 
+                                || registroForm.controls.correo.touched)">
+                                El correo es <strong>obligatorio</strong>
+                            </small>
+                            <small class="form-control-feedback" *ngIf="registroForm.controls.correo.hasError('email')">
+                                El correo debe ser <strong>válido</strong>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group " >
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label">Rol</label>
+                                <select class="form-control custom-select" formControlName="rol">
+                                    <option [value]="rol.id" *ngFor="let rol of roles">{{ rol.rol }}</option>
+                                </select>
+                                <div class="col text-danger">
+                                    <small class="form-control-feedback" *ngIf="registroForm.controls.rol.hasError('required') 
+                                    || registroForm.get('rol').value === 'Seleccionar' && (registroForm.controls.rol.dirty 
+                                    || registroForm.controls.rol.touched)">
+                                        El rol es <strong>obligatorio</strong>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="password" placeholder="Contraseña" formControlName="contrasena">
+                        </div>
+                        <div class="col text-danger">
+                            <small *ngIf="registroForm.controls.contrasena.hasError('required') 
+                                && (registroForm.controls.contrasena.dirty || registroForm.controls.contrasena.touched)">
+                                La contraseña es <strong>obligatoria</strong>
+                            </small>
+                            <small *ngIf="registroForm.controls.contrasena.hasError('minlength')">
+                                La contraseña debe tener mínimo<strong>6 caracteres</strong>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="password" placeholder="Confirmar Contraseña" formControlName="constrasena2">
+                        </div>
+                        <div class="col text-danger">
+                            <small *ngIf="registroForm.controls.constrasena2.hasError('required') 
+                                && (registroForm.controls.constrasena2.dirty || registroForm.controls.constrasena2.touched)">
+                                Debe confimar la <strong>constraseña</strong>
+                            </small>
+                            <small *ngIf="registroForm.controls.constrasena2.hasError('minlength')">
+                                La contraseña debe tener mínimo<strong>6 caracteres</strong>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group text-center p-b-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" type="submit" [disabled]="registroForm.invalid">
+                                Registrar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            ¿Ya tienes una cuenta en DiscoBeats? <a routerLink="/inicio-sesion" class="text-info m-l-5">
+                                <b>Inicia sesión</b>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

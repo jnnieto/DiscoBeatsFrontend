@@ -1,8 +1,6 @@
 export interface Registro {
-    nombre: string,
+    nombreUsuario: string,
     correo: string,
-    constrasena: string,
-    confirmarContrasena: string,
-    idRol: number,
-    terms: boolean
-}
+    contrasena: string,
+    idRol: number
+}   
