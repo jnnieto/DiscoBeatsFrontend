@@ -5,11 +5,11 @@
 <!-- .row -->
 <div class="row">
   <!-- .col -->
-  <div class="col-md-6 col-lg-6 col-xlg-4"  *ngFor="let artista of artistas">
+  <div class="col-md-6 col-lg-6 col-xlg-4 "  *ngFor="let artista of artistas">
     <div class="card card-body">
       <div class="row">
         <div class="col-md-4 col-lg-3 text-center">
-          <a href="app-contact-detail.html"><img src="../assets/images/artistas.png" alt="user"
+          <a [routerLink]="['/inicio/detalle-artista', artista.id]"><img src="../assets/images/artistas.png" alt="user"
               class="img-circle img-responsive"></a>
         </div>
         <div class="col-md-8 col-lg-9">

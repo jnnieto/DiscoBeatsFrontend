@@ -1,23 +1,26 @@
-<h4>Te invitamos a conocer los álbumes destacados de DiscoBeats</h4>
+<h4>Te invitamos a conocer las canciones populares de DiscoBeats</h4>
 <!-- ============================================================== -->
 <!-- Start Page Content -->
 <!-- ============================================================== -->
 <!-- .row -->
 <div class="row">
   <!-- .col -->
-  <div class="col-md-6 col-lg-6 col-xlg-4 " *ngFor="let album of albumes">
+  <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let cancion of canciones">
     <div class="card card-body">
       <div class="row">
         <div class="col-md-4 col-lg-3 text-center">
-          <a [routerLink]="['/inicio/detalle-artista', album.id]"><img src="../assets/images/discos.png" alt="user"
+          <a [routerLink]="['/inicio/detalle-artista', cancion.id]"><img src="../assets/images/canciones.png" alt="user"
               class="img-circle img-responsive"></a>
         </div>
         <div class="col-md-8 col-lg-9">
-          <h3 class="box-title m-b-0">{{ album.nombre | uppercase}}</h3>
+          <h3 class="box-title m-b-0">{{ cancion.nombre | uppercase}}</h3>
           <small>Artista: </small>
+          <br>
+          <small>Álbum: </small>
           <br><br>
-          <h5><strong>Fecha de Lanzamiento:</strong> {{ album.fechaLanzamiento | date : 'dd-MM-yyyy' }}</h5>
-          <h5><strong>Precio: </strong> $ {{ album.precio }}</h5>
+          <h5><strong>Fecha de Lanzamiento:</strong> {{ cancion.fechaLanzamiento | date : 'dd-MM-yyyy' }}</h5>
+          <h5><strong>Número de reproducciones: </strong> $ {{ cancion.reproducciones }}</h5>
+          <h5><strong>Precio: </strong> $ {{ cancion.precio }}</h5>
         </div>
         <br><br>
         <div class="col-sm-12" style="text-align: end;" >

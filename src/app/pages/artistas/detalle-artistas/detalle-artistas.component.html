@@ -1,0 +1,124 @@
+<div class="row">
+  <!-- Column -->
+  <div class="col-lg-4 col-xlg-3 col-md-5">
+    <div class="card">
+      <img class="card-img" src="../assets/images/background/socialbg.jpg" alt="Card image">
+      <div class="card-img-overlay card-inverse social-profile d-flex text-center">
+        <div class="align-self-center">
+          <img src="../assets/images/artistas.png" class="img-circle" width="100">
+          <h3 class="card-title">{{ artista.nombreArtistico | uppercase}}</h3>
+          <h6 class="card-subtitle">@{{ nombreArtistico | lowercase }}</h6>
+          <br><br>
+          <p class="text-white">{{ artista.descripcion }} </p>
+          <div class="card-body text-center">
+            <small class="text-muted p-t-30 db">Perfil Social</small>
+            <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>
+            <button class="btn btn-circle btn-secondary"><i class="fa fa-twitter"></i></button>
+            <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
+            <button class="btn btn-circle btn-secondary"><i class="fa fa-spotify"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-8 col-xlg-9 col-md-7">
+    <div class="card">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs profile-tab" role="tablist">
+        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Álbumes
+            destacados</a> </li>
+        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Canciones populares</a>
+        </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="home" role="tabpanel">
+          <div class="card-body">
+            <div class="profiletimeline">
+              <div class="sl-item">
+                <div class="sl-left"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle" /> </div>
+                <div class="sl-right">
+                  <div><a href="#" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                    <p>assign a new task <a href="#"> Design weblayout</a></p>
+                    <div class="row">
+                      <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img1.jpg"
+                          class="img-responsive radius" /></div>
+                      <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img2.jpg"
+                          class="img-responsive radius" /></div>
+                      <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img3.jpg"
+                          class="img-responsive radius" /></div>
+                      <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img4.jpg"
+                          class="img-responsive radius" /></div>
+                    </div>
+                    <div class="like-comm"> <a href="javascript:void(0)" class="link m-r-10">2 comment</a> <a
+                        href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> 5 Love</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+        <!--second tab-->
+        <div class="tab-pane" id="profile" role="tabpanel">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+                <br>
+                <p class="text-muted">Johnathan Deo</p>
+              </div>
+              <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
+                <br>
+                <p class="text-muted">(123) 456 7890</p>
+              </div>
+              <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                <br>
+                <p class="text-muted">johnathan@admin.com</p>
+              </div>
+              <div class="col-md-3 col-xs-6"> <strong>Location</strong>
+                <br>
+                <p class="text-muted">London</p>
+              </div>
+            </div>
+            <hr>
+            <p class="m-t-30">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus
+              ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer
+              tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo
+              ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+              scrambled it to make a type specimen book. It has survived not only five centuries </p>
+            <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
+              more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <h4 class="font-medium m-t-30">Skill Set</h4>
+            <hr>
+            <h5 class="m-t-30">Wordpress <span class="pull-right">80%</span></h5>
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+                aria-valuemax="100" style="width:80%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+            </div>
+            <h5 class="m-t-30">HTML 5 <span class="pull-right">90%</span></h5>
+            <div class="progress">
+              <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+                aria-valuemax="100" style="width:90%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+            </div>
+            <h5 class="m-t-30">jQuery <span class="pull-right">50%</span></h5>
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                aria-valuemax="100" style="width:50%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+            </div>
+            <h5 class="m-t-30">Photoshop <span class="pull-right">70%</span></h5>
+            <div class="progress">
+              <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                aria-valuemax="100" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Column -->
+</div>

@@ -17,7 +17,12 @@ export class ArtistaService {
   constructor(private http: HttpClient) { }
 
   obtenerArtistas() {
-
     return this.http.get<Artista[]>(`${baseUrl}/artistas`);
   }
+
+  obtenerArtistaPorId(id: number) {
+    return this.http.get<Artista>(`${baseUrl}/artistas/${id}`);
+  }
+
+
 }

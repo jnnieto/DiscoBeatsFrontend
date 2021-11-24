@@ -21,7 +21,9 @@ export class ArtistasComponent implements OnInit {
 
   obtenerListaArtistas() {
     this.artistaService.obtenerArtistas().subscribe( data => {
-      this.artistas = data;  this.artistas
+      this.artistas = data;
+    }, error => {
+      console.log(error);
     })
   }
 
