@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ArtistaService } from './../../services/artista.service'
+import { Artista } from 'src/app/models/artista.model';
 
 @Component({
   selector: 'app-artistas',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArtistasComponent implements OnInit {
 
-  constructor() { }
+  public artistas: Artista[];
 
-  ngOnInit(): void {
+  constructor(private artistaService: ArtistaService) { }
+
+  ngOnInit() {
+
+    this.obtenerListaArtistas();
+
+  }
+
+  obtenerListaArtistas() {
+    this.artistaService.obtenerArtistas().subscribe( data => {
+      this.artistas = data;  this.artistas
+    })
   }
 
 }

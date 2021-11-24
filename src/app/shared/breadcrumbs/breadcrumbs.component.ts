@@ -18,16 +18,16 @@ export class BreadcrumbsComponent implements OnDestroy {
     this.tituloSubs$ = this.getArgumentosRutas()
                            .subscribe(({titulo}) => {
                                   this.titulo = titulo;
-                                  document.title = `Discobeats - ${ titulo }`;
+                                  document.title = `DiscoBeats - ${ titulo }`;
                             });
   }
-  
+
   ngOnDestroy(): void {
     this.tituloSubs$.unsubscribe();
   }
-  
+
   getArgumentosRutas() {
-    
+
     return this.router.events
       .pipe(
         filter(event => event instanceof ActivationEnd),

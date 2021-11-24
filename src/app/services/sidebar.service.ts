@@ -7,13 +7,12 @@ export class SidebarService {
 
   menu: any[] = [
     {
-      titulo: 'Inicio',
-      icono: 'mdi mdi-gauge', 
+      titulo: 'Menú',
       submenu: [
-        { titulo: 'Main', url: '/' },
-        { titulo: 'Artistas', url: 'artistas' },
-        { titulo: 'Albumes', url: 'albumes' },
-        { titulo: 'Canciones', url: 'canciones' },
+        { titulo: 'Inicio', url: '/',  icono: 'mdi mdi-home' },
+        { titulo: 'Artistas', url: 'artistas', icono: 'mdi mdi-account-star-variant'},
+        { titulo: 'Álbumes', url: 'albumes', icono: 'mdi mdi-disk-alert' },
+        { titulo: 'Canciones', url: 'canciones', icono: 'mdi mdi-music-circle' },
       ]
     }
   ]
@@ -21,13 +20,13 @@ export class SidebarService {
   admin: any[] = [
     {
       titulo: 'Artistas',
-      icono: 'mdi mdi-gauge', 
+      icono: 'mdi mdi-home',
       submenu: [
         /* { titulo: 'Main', url: '/' } */
       ]
     }
   ]
-  
+
   constructor() { }
 
 }
