@@ -10,8 +10,8 @@ import { NoPageFoundComponent } from './pages/no-page-found/no-page-found.compon
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NoPageFoundComponent,
+    AppComponent, 
+    NoPageFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +19,6 @@ import { NoPageFoundComponent } from './pages/no-page-found/no-page-found.compon
     AuthModule,
     PagesModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

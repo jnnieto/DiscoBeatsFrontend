@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="form-group " >
-                        <div class="col-xs-12">
+                        <div class="col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Rol</label>
                                 <select class="form-control custom-select" formControlName="rol">
@@ -77,6 +77,9 @@
                             </small>
                             <small *ngIf="registroForm.controls.constrasena2.hasError('minlength')">
                                 La contraseña debe tener mínimo<strong>6 caracteres</strong>
+                            </small>
+                            <small *ngIf="contrasenasIguales() && (registroForm.controls.constrasena2.dirty || registroForm.controls.constrasena2.touched)">
+                                La contraseñas debes ser iguales
                             </small>
                         </div>
                     </div>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from './../../services/usuarios.service';
-import { Rol } from './../../models/roles.model';
-import { element } from 'protractor';
-import { error, log } from 'console';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
-import { Usuario } from './../../models/usuario.model';
+
+import Swal from 'sweetalert2';
+
+import { UsuariosService } from './../../services/usuarios.service';
+import { AuthService } from './../../services/auth.service';
+
+import { Rol } from './../../models/roles.model';
 import { Registro } from 'src/app/interfaces/registro.interface';
 
 @Component({
@@ -68,7 +69,9 @@ export class RegisterComponent implements OnInit {
         .subscribe(() => {
           console.log('Usuario creado correctamente');
           this.router.navigate(['inicio-sesion']);
-        }, error => console.warn(error.error))
+        }, error => {   
+          Swal.fire('Error', error.error.error, 'error');
+        });
     
   }
 
@@ -83,6 +86,13 @@ export class RegisterComponent implements OnInit {
 
     return registro;
 
+  }
+
+  contrasenasIguales() {
+    const pass1 = this.registroForm.get('contrasena').value;
+    const pass2 = this.registroForm.get('constrasena2').value;
+
+    return (pass1 !== pass2) ? false : true;
   }
 
 }

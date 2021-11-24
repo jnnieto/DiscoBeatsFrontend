@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 
 import { Registro } from '../interfaces/registro.interface';
 import { Login } from './../interfaces/login.interface';
-import { log } from 'console';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 const baseUrl = environment.base_url;
 
@@ -21,6 +21,10 @@ export class AuthService {
    */
   constructor(private http: HttpClient) { }
 
+  get token(): string {
+    return sessionStorage.getItem('token') || '';
+  }
+
   registrarUsuario(formData: Registro) {
     console.log(formData);
     
@@ -31,10 +35,19 @@ export class AuthService {
     return this.http.post(`${ baseUrl }/auth/login`, formData)
                     .pipe(
                       tap(({ token }: any) => {
-                        localStorage.setItem('token', token);
+                        sessionStorage.setItem('token', token);
                       })
                     );
   }
 
+  cerrarSesion(correo: any) {
+    
+    return this.http.put<any>(`${ baseUrl }/auth/logout`, { correo }, {
+      headers: {
+        'token': this.token
+      }
+    });
+
+  }
 
 }
