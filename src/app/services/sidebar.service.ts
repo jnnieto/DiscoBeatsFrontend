@@ -17,16 +17,6 @@ export class SidebarService {
     }
   ]
 
-  admin: any[] = [
-    {
-      titulo: 'Artistas',
-      icono: 'mdi mdi-home',
-      submenu: [
-        /* { titulo: 'Main', url: '/' } */
-      ]
-    }
-  ]
-
   constructor() { }
 
 }

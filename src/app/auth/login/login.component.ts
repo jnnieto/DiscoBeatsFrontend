@@ -52,9 +52,7 @@ export class LoginComponent implements OnInit {
       Swal.fire('Bienvenido', this.decodeToken().usuario, 'success')
       this.router.navigate([''])
     }, error => {
-      //Swal.fire('Error', error.error.error, 'error')
-      console.log(error);
-      
+      Swal.fire('Error', error.error.error, 'error')
     }); 
   }
 

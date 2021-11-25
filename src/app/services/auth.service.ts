@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { Registro } from '../interfaces/registro.interface';
 import { Login } from './../interfaces/login.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Usuario } from '../models/usuario.model';
 
 const baseUrl = environment.base_url;
 
@@ -25,6 +26,12 @@ export class AuthService {
     return sessionStorage.getItem('token') || '';
   }
 
+  get decodeToken(): any {
+    const helper = new JwtHelperService();
+    const decodeToken = helper.decodeToken(this.token);
+    return decodeToken;
+  }
+
   registrarUsuario(formData: Registro) {
     console.log(formData);
     
@@ -38,6 +45,10 @@ export class AuthService {
                         sessionStorage.setItem('token', token);
                       })
                     );
+  }
+
+  obtenerInfoUsuario() {
+    return this.http.get<Usuario>(`${ baseUrl }/usuarios/${ this.decodeToken.sub }` )
   }
 
   cerrarSesion(correo: any) {
