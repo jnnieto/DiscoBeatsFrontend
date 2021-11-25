@@ -5,6 +5,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { GeneroMusicalesService } from './../../services/genero-musicales.service';
 import { GeneroMusical } from 'src/app/models/genero-musical.model';
 import Swal from 'sweetalert2';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'app-artistas',
@@ -18,6 +19,8 @@ export class ArtistasComponent implements OnInit {
   public artistas: Artista[];
   public generos: GeneroMusical[];
 
+  public rol: string;
+
   public ocupaciones: any = [{id: 1, nombreOcupacion: 'Cantante'},
                              {id: 2, nombreOcupacion: 'DJ Profesional'},
                              {id: 3, nombreOcupacion: 'Compositor'},
@@ -27,12 +30,13 @@ export class ArtistasComponent implements OnInit {
   constructor(
     private artistaService: ArtistaService,
     private generoService: GeneroMusicalesService,
+    private authService: AuthService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
 
+    this.obtenerRolDeUsuario();
     this.obtenerListaArtistas();
-
     this.obtenerGenerosMusicales();
 
     this.formArtistas = this.fb.group({
@@ -63,6 +67,10 @@ export class ArtistasComponent implements OnInit {
       ] ],
     });
 
+  }
+
+  obtenerRolDeUsuario() {
+    this.rol = this.authService.decodeToken.rol;
   }
 
   obtenerListaArtistas() {

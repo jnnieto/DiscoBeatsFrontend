@@ -10,7 +10,7 @@ import { ArtistaService } from 'src/app/services/artista.service';
 })
 export class DetalleArtistasComponent implements OnInit {
 
-  public artista: Artista;
+  public artista: Artista[];
   public nombreArtistico: string;
 
   constructor(
@@ -20,15 +20,15 @@ export class DetalleArtistasComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(data => {
-      this.obtenerArtista(data.id);
+      this.obtenerArtistaPorId(data.id);
     })
 
   }
 
-  obtenerArtista(id: number) {
+  obtenerArtistaPorId(id: number) {
     this.artistaService.obtenerArtistaPorId(id).subscribe(data => {
       this.artista = data;
-      this.nombreArtistico = data.nombreArtistico.replace(/ /g, "");
+      this.nombreArtistico = data[0].nombreArtistico.replace(/ /g, "");
     }, error => {
       console.log(error);
     }

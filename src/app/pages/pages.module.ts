@@ -12,6 +12,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetalleArtistasComponent } from './artistas/detalle-artistas/detalle-artistas.component';
 import { CancionesComponent } from './canciones/canciones.component';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
+import { DetalleAlbumesComponent } from './albumes/detalle-albumes/detalle-albumes.component';
+import { DetalleCancionesComponent } from './canciones/detalle-canciones/detalle-canciones.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.componen
     AlbumesComponent,
     CancionesComponent,
     DetalleArtistasComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
+    DetalleAlbumesComponent,
+    DetalleCancionesComponent,
+    UsuariosComponent
   ],
   exports: [
     DashboardComponent,

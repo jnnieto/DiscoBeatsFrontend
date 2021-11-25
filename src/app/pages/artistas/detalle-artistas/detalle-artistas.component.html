@@ -1,15 +1,15 @@
 <div class="row">
   <!-- Column -->
   <div class="col-lg-4 col-xlg-3 col-md-5">
-    <div class="card">
+    <div class="card" *ngFor="let artis of artista">
       <img class="card-img" src="../assets/images/background/socialbg.jpg" alt="Card image">
       <div class="card-img-overlay card-inverse social-profile d-flex text-center">
         <div class="align-self-center">
           <img src="../assets/images/artistas.png" class="img-circle" width="100">
-          <h3 class="card-title">{{ artista.nombreArtistico | uppercase}}</h3>
+          <h3 class="card-title">{{ artis.nombreArtistico | uppercase}}</h3>
           <h6 class="card-subtitle">@{{ nombreArtistico | lowercase }}</h6>
           <br><br>
-          <p class="text-white">{{ artista.descripcion }} </p>
+          <p class="text-white">{{ artis.descripcion }} </p>
           <div class="card-body text-center">
             <small class="text-muted p-t-30 db">Perfil Social</small>
             <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>

@@ -1,13 +1,16 @@
 export class Cancion {
-    constructor(
-        public nombre: string,
-        public duracion: Date,
-        public reproducciones: number,
-        public fechaLanzamiento: string,
-        public precio: number,
-        public imagen?: File,
-        public id?: number,
-        public idArtista?: number,
-        public idGenero?: number,
-    ) {}
+
+  public id?: number;
+  public idArtista?: number;
+  public idAlbum?: number;
+  public idGenero: number;
+  public nombre: string;
+  public duracion: string;
+  public fechaLanzamiento: string;
+  public reproducciones: number;
+  public precio: number;
+  public imagen?: File;
+
+  constructor(cancion?: Cancion) { }
+
 }

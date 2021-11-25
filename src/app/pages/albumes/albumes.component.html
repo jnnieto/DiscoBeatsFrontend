@@ -39,7 +39,7 @@
 
           <div class="form-group">
             <label for="message-text" class="control-label">Fecha de Lanzamiento:</label>
-            <input type="text" class="form-control"  placeholder="Ejemplo: (Año-Mes-Día / 1999-10-14)" id="recipient-name"
+            <input type="date" class="form-control" id="recipient-name"
               formControlName="fechaLanzamiento">
             <small style="color: red; font-style: italic;" *ngIf="formAlbumes.controls.fechaLanzamiento.hasError('required')
               && (formAlbumes.controls.fechaLanzamiento.dirty  || formAlbumes.controls.fechaLanzamiento.touched)">
@@ -72,25 +72,19 @@
 
           <div class="form-group">
             <label class="col-sm-12">Seleccione el artista</label>
-            <div class="col-sm-12">
-              <select class="form-control form-control-line">
-                <option>London</option>
-                <option>India</option>
-                <option>Usa</option>
-                <option>Canada</option>
-                <option>Thailand</option>
+            <div class="col-sm-12" *ngIf="artistas">
+              <select class="form-control form-control-line" formControlName="artista">
+                <option [value]="artista.id" *ngFor="let artista of artistas">
+                  {{ artista.nombreArtistico }}
               </select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-12">Seleccione el género musical</label>
-            <div class="col-sm-12">
-              <select class="form-control form-control-line">
-                <option>London</option>
-                <option>India</option>
-                <option>Usa</option>
-                <option>Canada</option>
-                <option>Thailand</option>
+            <div class="col-sm-12" *ngIf="generos">
+              <select class="form-control form-control-line" formControlName="generoMusical">
+                <option [value]="genero.id" *ngFor="let genero of generos">
+                  {{ genero.nombreGeneroMusical }}
               </select>
             </div>
           </div>
@@ -98,7 +92,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success waves-effect waves-light">Agregar álbum</button>
+        <button type="button" (click)="agregarNuevoAlbum()" class="btn btn-success waves-effect waves-light">Agregar álbum</button>
       </div>
     </div>
   </div>
@@ -111,7 +105,7 @@
     <div class="card card-body">
       <div class="row">
         <div class="col-md-4 col-lg-3 text-center">
-          <a [routerLink]="['/inicio/detalle-artista', album.id]"><img src="../assets/images/discos.png" alt="user"
+          <a [routerLink]="['/inicio/detalle-album', album.id]"><img src="../assets/images/discos.png" alt="user"
               class="img-circle img-responsive"></a>
         </div>
         <div class="col-md-8 col-lg-9">
@@ -123,11 +117,11 @@
         </div>
         <br><br>
         <div class="col-sm-12" style="text-align: end;">
-          <button class="btn btn-circle btn-success" data-toggle="modal" data-target="#responsive-modal"><i
+          <button *ngIf="rol === 'Usuario'" class="btn btn-circle btn-success" data-toggle="modal" data-target="#responsive-modal"><i
             class="mdi  mdi-cart"></i></button>
           <button class="btn btn-circle btn-secondary" data-toggle="modal" data-target="#responsive-modal"><i
               class="fa  fa-edit"></i></button>
-          <button class="btn btn-circle btn-danger"><i class="fa  fa-trash-o"></i></button>
+          <button class="btn btn-circle btn-danger" (click)="eliminarAlbumPorId(album)"><i class="fa  fa-trash-o"></i></button>
         </div>
       </div>
     </div>

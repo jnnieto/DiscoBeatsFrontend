@@ -24,7 +24,7 @@ export class ArtistaService {
   }
 
   obtenerArtistaPorId(id: number) {
-    return this.http.get<Artista>(`${baseUrl}/artistas/${id}`);
+    return this.http.get<Artista[]>(`${baseUrl}/artistas/${id}`);
   }
 
   agregarNuevoArtista(artista: Artista) {
@@ -50,6 +50,5 @@ export class ArtistaService {
       }
     });
   }
-
 
 }

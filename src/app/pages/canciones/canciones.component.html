@@ -39,8 +39,7 @@
 
           <div class="form-group">
             <label for="message-text" class="control-label">Fecha de Lanzamiento:</label>
-            <input type="text" class="form-control"  placeholder="Ejemplo: (Año-Mes-Día / 1999-10-14)" id="recipient-name"
-              formControlName="fechaLanzamiento">
+            <input type="date" class="form-control" id="recipient-name" formControlName="fechaLanzamiento">
             <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.fechaLanzamiento.hasError('required')
               && (formCanciones.controls.fechaLanzamiento.dirty  || formCanciones.controls.fechaLanzamiento.touched)">
               La fecha de Lanzamiento es <strong>obligatoria</strong>
@@ -76,37 +75,28 @@
 
           <div class="form-group">
             <label class="col-sm-12">Seleccione el artista</label>
-            <div class="col-sm-12">
-              <select class="form-control form-control-line">
-                <option>London</option>
-                <option>India</option>
-                <option>Usa</option>
-                <option>Canada</option>
-                <option>Thailand</option>
+            <div class="col-sm-12"*ngIf="artistas">
+              <select class="form-control form-control-line" formControlName="artista">
+                <option [value]="artista.id" *ngFor="let artista of artistas">
+                  {{ artista.nombreArtistico }}
               </select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-12">Seleccione el álbum</label>
-            <div class="col-sm-12">
-              <select class="form-control form-control-line">
-                <option>London</option>
-                <option>India</option>
-                <option>Usa</option>
-                <option>Canada</option>
-                <option>Thailand</option>
+            <div class="col-sm-12"*ngIf="albumes">
+              <select class="form-control form-control-line" formControlName="album">
+                <option [value]="album.id" *ngFor="let album of albumes">
+                  {{ album.nombre }}
               </select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-12">Seleccione el género musical</label>
-            <div class="col-sm-12">
-              <select class="form-control form-control-line">
-                <option>London</option>
-                <option>India</option>
-                <option>Usa</option>
-                <option>Canada</option>
-                <option>Thailand</option>
+            <div class="col-sm-12"*ngIf="generos">
+              <select class="form-control form-control-line" formControlName="generoMusical">
+                <option [value]="genero.id" *ngFor="let genero of generos">
+                  {{ genero.nombreGeneroMusical }}
               </select>
             </div>
           </div>
@@ -114,7 +104,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success waves-effect waves-light">Agregar Canción</button>
+        <button type="button" (click)="agregarNuevaCancion()" class="btn btn-success waves-effect waves-light">Agregar Canción</button>
       </div>
     </div>
   </div>
@@ -142,11 +132,11 @@
         </div>
         <br><br>
         <div class="col-sm-12" style="text-align: end;">
-          <button class="btn btn-circle btn-success" data-toggle="modal" data-target="#responsive-modal"><i
+          <button *ngIf="rol === 'Usuario'" class="btn btn-circle btn-success" data-toggle="modal" data-target="#responsive-modal"><i
             class="mdi  mdi-cart"></i></button>
           <button class="btn btn-circle btn-secondary" data-toggle="modal" data-target="#responsive-modal"><i
               class="fa  fa-edit"></i></button>
-          <button class="btn btn-circle btn-danger"><i class="fa  fa-trash-o"></i></button>
+          <button class="btn btn-circle btn-danger" (click)="eliminarCancionPorId()"><i class="fa  fa-trash-o"></i></button>
         </div>
       </div>
     </div>
