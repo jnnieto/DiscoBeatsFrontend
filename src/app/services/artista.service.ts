@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Artista } from './../models/artista.model';
+import { AuthService } from './auth.service';
 
 const baseUrl = environment.base_url;
 
@@ -14,7 +15,9 @@ export class ArtistaService {
   * Constructor sobrecargado de ArtistaService
   * @param http
   */
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService) { }
 
   obtenerArtistas() {
     return this.http.get<Artista[]>(`${baseUrl}/artistas`);
@@ -22,6 +25,30 @@ export class ArtistaService {
 
   obtenerArtistaPorId(id: number) {
     return this.http.get<Artista>(`${baseUrl}/artistas/${id}`);
+  }
+
+  agregarNuevoArtista(artista: Artista) {
+    return this.http.post(`${baseUrl}/artistas`, artista, {
+      headers: {
+        'token': this.authService.token
+      }
+    });
+  }
+
+  editarArtista(artista: Artista) {
+    return this.http.put<Artista>(`${baseUrl}/artistas`, artista, {
+      headers: {
+        'token': this.authService.token
+      }
+    });
+  }
+
+  eliminarArtista(id: number){
+    return this.http.delete(`${baseUrl}/artistas/${id}`, {
+      headers: {
+        'token': this.authService.token
+      }
+    });
   }
 
 

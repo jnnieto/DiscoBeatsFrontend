@@ -2,10 +2,111 @@
 <!-- ============================================================== -->
 <!-- Start Page Content -->
 <!-- ============================================================== -->
+<div style="text-align: end;">
+  <button class="btn btn-circle btn-info" data-toggle="modal" data-target="#responsive-modal"><i
+      class="fa  fa-plus"></i></button>
+</div>
+<!-- sample modal content -->
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Agregar nuevo artista</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <img style="width: 40%" src="./assets/images/artistas.png" alt="user" />
+        </div>
+        <br>
+        <form (ngSubmit)="agregarNuevoArtista()" [formGroup]="formArtistas">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Nombre artístico:</label>
+            <input type="text" class="form-control" id="recipient-name" minlength="5" maxlength="20"
+              formControlName="nombreArtistico">
+            <small style="color: red; font-style: italic;" *ngIf="formArtistas.controls.nombreArtistico.hasError('required')
+              && (formArtistas.controls.nombreArtistico.dirty  || formArtistas.controls.nombreArtistico.touched)">
+              El nombre artístico es <strong>obligatorio</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formArtistas.controls.nombreArtistico.errors?.minlength">
+              El nombre artístico debe tener mínimo <strong>3 caracteres</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formArtistas.controls.nombreArtistico.errors?.maxlength"></small>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Nacionalidad:</label>
+            <input type="text" class="form-control" id="recipient-name" minlength="5" maxlength="20"
+              formControlName="nacionalidad">
+            <small style="color: red; font-style: italic;" *ngIf="formArtistas.controls.nacionalidad.hasError('required')
+              && (formArtistas.controls.nacionalidad.dirty  || formArtistas.controls.nacionalidad.touched)">
+              La nacionalidad es <strong>obligatoria</strong>
+            </small>
+            <small style="color: red; font-style: italic;" *ngIf="formArtistas.controls.nacionalidad.errors?.minlength">
+              La nacionalidad debe tener mínimo <strong>5 caracteres</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formArtistas.controls.nacionalidad.errors?.maxlength"></small>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Fecha de Nacimiento:</label>
+            <input type="text" class="form-control" placeholder="Ejemplo: (Año-Mes-Día / 1999-10-14)" id="recipient-name"
+              formControlName="fechaNacimiento">
+            <small style="color: red; font-style: italic;" *ngIf="formArtistas.controls.fechaNacimiento.hasError('required')
+              && (formArtistas.controls.fechaNacimiento.dirty  || formArtistas.controls.fechaNacimiento.touched)">
+              La fecha de nacimiento es <strong>obligatoria</strong>
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Descripción:</label>
+            <textarea class="form-control" id="message-text" minlength="15" maxlength="255"
+              formControlName="descripcion"></textarea>
+            <small style="color: red; font-style: italic;" *ngIf="formArtistas.controls.descripcion.hasError('required')
+              && (formArtistas.controls.descripcion.dirty  || formArtistas.controls.descripcion.touched)">
+              La descripcion es <strong>obligatoria</strong>
+            </small>
+            <small style="color: red; font-style: italic;" *ngIf="formArtistas.controls.descripcion.errors?.minlength">
+              La descripcion debe tener mínimo <strong>15 caracteres</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formArtistas.controls.descripcion.errors?.maxlength"></small>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12">Seleccione la ocupación</label>
+            <div class="col-sm-12">
+              <select class="form-control form-control-line" formControlName="ocupacion">
+                <option [value]="ocupacion.id" *ngFor="let ocupacion of ocupaciones">
+                  {{ ocupacion.nombreOcupacion }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12">Seleccione el género musical</label>
+            <div class="col-sm-12" *ngIf="generos">
+              <select class="form-control form-control-line" formControlName="generoMusical">
+                <option [value]="genero.id" *ngFor="let genero of generos">
+                  {{ genero.nombreGeneroMusical }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success waves-effect waves-light" (click)="agregarNuevoArtista()">Agregar artista</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
 <!-- .row -->
 <div class="row">
   <!-- .col -->
-  <div class="col-md-6 col-lg-6 col-xlg-4 "  *ngFor="let artista of artistas">
+  <div class="col-md-6 col-lg-6 col-xlg-4 " *ngFor="let artista of artistas">
     <div class="card card-body">
       <div class="row">
         <div class="col-md-4 col-lg-3 text-center">
@@ -19,6 +120,11 @@
           <h5><strong>Fecha de Nacimiento:</strong> {{ artista.fechaNacimiento | date : 'dd-MM-yyyy' }}</h5>
           <h5><strong>Nacionalidad:</strong> {{ artista.nacionalidad }}</h5>
         </div>
+      </div>
+      <div style="text-align: end;">
+        <button class="btn btn-circle btn-secondary" data-toggle="modal" data-target="#responsive-modal"><i
+            class="fa  fa-edit"></i></button>
+        <button class="btn btn-circle btn-danger" (click)="eliminarArtistaPorId(artista)"><i class="fa  fa-trash-o"></i></button>
       </div>
     </div>
   </div>

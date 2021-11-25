@@ -3,7 +3,7 @@ export class Cancion {
         public nombre: string,
         public duracion: Date,
         public reproducciones: number,
-        public fechaLanzamiento: Date,
+        public fechaLanzamiento: string,
         public precio: number,
         public imagen?: File,
         public id?: number,

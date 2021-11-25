@@ -2,6 +2,124 @@
 <!-- ============================================================== -->
 <!-- Start Page Content -->
 <!-- ============================================================== -->
+<div style="text-align: end;">
+  <button class="btn btn-circle btn-primary" data-toggle="modal" data-target="#responsive-modal"><i
+      class="fa  fa-plus"></i></button>
+</div>
+<!-- sample modal content -->
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Agregar nueva canción</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <img style="width: 40%" src="./assets/images/canciones.png" alt="user" />
+        </div>
+        <br>
+        <form (ngSubmit)="agregarNuevaCancion()" [formGroup]="formCanciones">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Nombre de la canción:</label>
+            <input type="text" class="form-control" id="recipient-name" minlength="3" maxlength="25"
+              formControlName="nombre">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.nombre.hasError('required')
+              && (formCanciones.controls.nombre.dirty  || formCanciones.controls.nombre.touched)">
+              El nombre de la canción es <strong>obligatorio</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formCanciones.controls.nombre.errors?.minlength">
+              El nombre de la canción debe tener mínimo <strong>3 caracteres</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formCanciones.controls.nombre.errors?.maxlength"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="control-label">Fecha de Lanzamiento:</label>
+            <input type="text" class="form-control"  placeholder="Ejemplo: (Año-Mes-Día / 1999-10-14)" id="recipient-name"
+              formControlName="fechaLanzamiento">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.fechaLanzamiento.hasError('required')
+              && (formCanciones.controls.fechaLanzamiento.dirty  || formCanciones.controls.fechaLanzamiento.touched)">
+              La fecha de Lanzamiento es <strong>obligatoria</strong>
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Número de reproducciones:</label>
+            <input type="number" class="form-control" placeholder="Ejemplo: 528990" id="recipient-name"
+              formControlName="reproducciones">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.reproducciones.hasError('required')
+              && (formCanciones.controls.reproducciones.dirty  || formCanciones.controls.reproducciones.touched)">
+              El número de reproducciones es <strong>obligatorio</strong>
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Precio de la canción:</label>
+            <input type="number" class="form-control" placeholder="Ejemplo: 00:03:49" id="recipient-name"
+              formControlName="duracion">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.duracion.hasError('required')
+              && (formCanciones.controls.duracion.dirty  || formCanciones.controls.duracion.touched)">
+              La duración de la canción es <strong>obligatoria</strong>
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Precio de la canción: ($)</label>
+            <input type="number" class="form-control" placeholder="Ejemplo: 58990" id="recipient-name"
+              formControlName="precio">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.fechaLanzamiento.hasError('required')
+              && (formCanciones.controls.precio.dirty  || formCanciones.controls.precio.touched)">
+              El precio es <strong>obligatorio</strong>
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-12">Seleccione el artista</label>
+            <div class="col-sm-12">
+              <select class="form-control form-control-line">
+                <option>London</option>
+                <option>India</option>
+                <option>Usa</option>
+                <option>Canada</option>
+                <option>Thailand</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12">Seleccione el álbum</label>
+            <div class="col-sm-12">
+              <select class="form-control form-control-line">
+                <option>London</option>
+                <option>India</option>
+                <option>Usa</option>
+                <option>Canada</option>
+                <option>Thailand</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12">Seleccione el género musical</label>
+            <div class="col-sm-12">
+              <select class="form-control form-control-line">
+                <option>London</option>
+                <option>India</option>
+                <option>Usa</option>
+                <option>Canada</option>
+                <option>Thailand</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success waves-effect waves-light">Agregar Canción</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
 <!-- .row -->
 <div class="row">
   <!-- .col -->
@@ -23,8 +141,12 @@
           <h5><strong>Precio: </strong> $ {{ cancion.precio }}</h5>
         </div>
         <br><br>
-        <div class="col-sm-12" style="text-align: end;" >
-          <button class="btn btn-success">Comprar Ahora</button>
+        <div class="col-sm-12" style="text-align: end;">
+          <button class="btn btn-circle btn-success" data-toggle="modal" data-target="#responsive-modal"><i
+            class="mdi  mdi-cart"></i></button>
+          <button class="btn btn-circle btn-secondary" data-toggle="modal" data-target="#responsive-modal"><i
+              class="fa  fa-edit"></i></button>
+          <button class="btn btn-circle btn-danger"><i class="fa  fa-trash-o"></i></button>
         </div>
       </div>
     </div>
