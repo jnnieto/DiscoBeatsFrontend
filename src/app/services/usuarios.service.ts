@@ -31,6 +31,10 @@ export class UsuariosService {
     return this.http.get<Usuario>(`${ baseUrl }/${ id }`);
   }
 
+  agregarNuevoUsuario(usuario: Usuario) {
+    return this.http.post(`${ baseUrl }`, usuario);
+  }
+
   actualizarUsuario(usuario: Usuario) {
     return this.http.put(`${ baseUrl }`, usuario, {
       headers: {
@@ -39,7 +43,7 @@ export class UsuariosService {
     });
   }
 
-  eliminarUsuario(id: string) {
+  eliminarUsuario(id: number) {
     return this.http.delete(`${ baseUrl }/${ id }`, {
       headers: {
         'token': this.authService.token

@@ -15,10 +15,12 @@ import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.componen
 import { DetalleAlbumesComponent } from './albumes/detalle-albumes/detalle-albumes.component';
 import { DetalleCancionesComponent } from './canciones/detalle-canciones/detalle-canciones.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { GenerosComponent } from './generos/generos.component';
+import { ComprasCancionesComponent } from './compras-canciones/compras-canciones.component';
+import { ComprasAlbumesComponent } from './compras-albumes/compras-albumes.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
     PagesComponent,
     ArtistasComponent,
     AlbumesComponent,
@@ -27,10 +29,12 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     PerfilUsuarioComponent,
     DetalleAlbumesComponent,
     DetalleCancionesComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    GenerosComponent,
+    ComprasCancionesComponent,
+    ComprasAlbumesComponent
   ],
   exports: [
-    DashboardComponent,
     PagesComponent,
     ArtistasComponent,
     AlbumesComponent,

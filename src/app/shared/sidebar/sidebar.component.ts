@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit {
     private sidebarService: SidebarService,
     private authService: AuthService
     ) {
-    this.menuItems = sidebarService.menu;
+    this.menuItems = sidebarService.menuAdminSideBar();
   }
 
   ngOnInit(): void {

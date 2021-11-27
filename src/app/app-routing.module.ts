@@ -8,7 +8,7 @@ import  { PagesRoutingModule } from './pages/pages-routing.module';
 import { NoPageFoundComponent } from './pages/no-page-found/no-page-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
+  { path: '', redirectTo: '/inicio/artistas', pathMatch: 'full' },
   { path: '**', component: NoPageFoundComponent },
 ]
 

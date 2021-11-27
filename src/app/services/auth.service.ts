@@ -18,7 +18,7 @@ export class AuthService {
 
   /**
    * Constructor sobrecargado de AuthService
-   * @param http 
+   * @param http
    */
   constructor(private http: HttpClient) { }
 
@@ -33,8 +33,6 @@ export class AuthService {
   }
 
   registrarUsuario(formData: Registro) {
-    console.log(formData);
-    
     return this.http.post(`${ baseUrl }/usuarios`, formData);
   }
 
@@ -52,7 +50,7 @@ export class AuthService {
   }
 
   cerrarSesion(correo: any) {
-    
+
     return this.http.put<any>(`${ baseUrl }/auth/logout`, { correo }, {
       headers: {
         'token': this.token

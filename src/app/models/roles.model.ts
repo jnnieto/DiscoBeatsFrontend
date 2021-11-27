@@ -1,6 +1,7 @@
 export class Rol {
-    constructor(
-        public rol: string,
-        public id?: number
-    ) {}
+
+  public id?: number;
+  public rol: string;
+
+  constructor(rol?: Rol) { }
 }
