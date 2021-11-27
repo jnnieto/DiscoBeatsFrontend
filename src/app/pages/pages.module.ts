@@ -8,7 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
 import { ArtistasComponent } from './artistas/artistas.component';
 import { AlbumesComponent } from './albumes/albumes.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetalleArtistasComponent } from './artistas/detalle-artistas/detalle-artistas.component';
 import { CancionesComponent } from './canciones/canciones.component';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';

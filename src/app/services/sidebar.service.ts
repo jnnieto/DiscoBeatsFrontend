@@ -11,6 +11,7 @@ export class SidebarService {
       titulo: 'Menú', icono: 'mdi mdi-bookmark-music',
       submenu: [
         { titulo: 'Usuarios', url: 'usuarios', icono: 'fa fa-user-circle-o' },
+        { titulo: 'Géneros', url: 'generos', icono: 'mdi-library-music' },
         { titulo: 'Artistas', url: 'artistas', icono: 'mdi mdi-microphone-variant' },
         { titulo: 'Álbumes', url: 'albumes', icono: 'mdi mdi-disk-alert' },
         { titulo: 'Canciones', url: 'canciones', icono: 'fa fa-music' },
