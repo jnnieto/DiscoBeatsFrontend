@@ -3,16 +3,157 @@
 <!-- Start Page Content -->
 <!-- ============================================================== -->
 <div style="text-align: end;">
-  <button class="btn btn-circle btn-primary" data-toggle="modal" data-target="#responsive-modal"><i
+  <button class="btn btn-circle btn-primary" (click)="resetearForm()" data-toggle="modal" data-target="#responsive-modal"><i
       class="fa  fa-plus"></i></button>
 </div>
-<!-- sample modal content -->
+
+<br>
+<!-- .row -->
+<div class="row">
+  <!-- .col -->
+  <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let cancion of canciones">
+    <div class="card card-body">
+      <div class="row">
+        <div class="col-md-4 col-lg-3 text-center">
+          <a [routerLink]="['/inicio/detalle-cancion', cancion.id]"><img src="../assets/images/canciones.png" alt="user"
+              class="img-circle img-responsive"></a>
+        </div>
+        <div class="col-md-8 col-lg-9">
+          <h3 class="box-title m-b-0">{{ cancion.nombre | uppercase}}</h3>
+          <small>Artista: {{ cancion.nombreArtistico }}</small>
+          <br>
+          <small>Álbum: {{ cancion.nombreAlbum }}</small>
+          <br><br>
+          <h5><strong>Fecha de Lanzamiento:</strong> {{ cancion.fechaLanzamiento | date : 'dd-MM-yyyy' }}</h5>
+          <h5><strong>Número de reproducciones: </strong> {{ cancion.reproducciones }}</h5>
+          <h5><strong class="text-success">Precio: <i class="fa fa-dollar text-success"></i> {{ cancion.precio }}</strong></h5>
+        </div>
+        <br><br>
+        <div class="col-sm-12" style="text-align: end;">
+          <button *ngIf="rol === 'Usuario'" class="btn btn-circle btn-success" data-toggle="modal" data-target="#responsive-modal"><i
+            class="mdi  mdi-cart"></i></button>
+          <button class="btn btn-circle btn-secondary" (click)="cargarInformacionCancion(cancion)" data-toggle="modal" data-target="#responsive-modal-editar"><i
+              class="fa  fa-edit"></i></button>
+          <button class="btn btn-circle btn-danger" (click)="eliminarCancionPorId(cancion)"><i class="fa  fa-trash-o"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.col -->
+</div>
+
+
+<!-- sample modal agregar nueva canción content -->
 <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Agregar nueva canción</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <img style="width: 40%" src="./assets/images/canciones.png" alt="user" />
+        </div>
+        <br>
+        <form (ngSubmit)="agregarNuevaCancion()" [formGroup]="formCanciones">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Nombre de la canción:</label>
+            <input type="text" class="form-control" id="recipient-name" minlength="3" maxlength="25"
+              formControlName="nombre">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.nombre.hasError('required')
+              && (formCanciones.controls.nombre.dirty  || formCanciones.controls.nombre.touched)">
+              El nombre de la canción es <strong>obligatorio</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formCanciones.controls.nombre.errors?.minlength">
+              El nombre de la canción debe tener mínimo <strong>3 caracteres</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formCanciones.controls.nombre.errors?.maxlength"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="control-label">Fecha de Lanzamiento:</label>
+            <input type="date" class="form-control" id="recipient-name" formControlName="fechaLanzamiento">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.fechaLanzamiento.hasError('required')
+              && (formCanciones.controls.fechaLanzamiento.dirty  || formCanciones.controls.fechaLanzamiento.touched)">
+              La fecha de Lanzamiento es <strong>obligatoria</strong>
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Número de reproducciones:</label>
+            <input type="number" class="form-control" placeholder="Ejemplo: 528990" id="recipient-name"
+              formControlName="reproducciones">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.reproducciones.hasError('required')
+              && (formCanciones.controls.reproducciones.dirty  || formCanciones.controls.reproducciones.touched)">
+              El número de reproducciones es <strong>obligatorio</strong>
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Duración de la canción:</label>
+            <input type="text" class="form-control" placeholder="Ejemplo: 00:03:49" id="recipient-name"
+              formControlName="duracion">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.duracion.hasError('required')
+              && (formCanciones.controls.duracion.dirty  || formCanciones.controls.duracion.touched)">
+              La duración de la canción es <strong>obligatoria</strong>
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Precio de la canción: ($)</label>
+            <input type="number" class="form-control" placeholder="Ejemplo: 58999" id="recipient-name"
+              formControlName="precio">
+            <small style="color: red; font-style: italic;" *ngIf="formCanciones.controls.fechaLanzamiento.hasError('required')
+              && (formCanciones.controls.precio.dirty  || formCanciones.controls.precio.touched)">
+              El precio es <strong>obligatorio</strong>
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-12">Seleccione el artista</label>
+            <div class="col-sm-12"*ngIf="artistas">
+              <select class="form-control form-control-line" formControlName="artista">
+                <option [value]="artista.id" *ngFor="let artista of artistas">
+                  {{ artista.nombreArtistico }}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12">Seleccione el álbum</label>
+            <div class="col-sm-12"*ngIf="albumes">
+              <select class="form-control form-control-line" formControlName="album">
+                <option [value]="album.id" *ngFor="let album of albumes">
+                  {{ album.nombre }}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12">Seleccione el género musical</label>
+            <div class="col-sm-12"*ngIf="generos">
+              <select class="form-control form-control-line" formControlName="generoMusical">
+                <option [value]="genero.id" *ngFor="let genero of generos">
+                  {{ genero.nombreGeneroMusical }}
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
+        <button type="button" (click)="agregarNuevaCancion()" class="btn btn-success waves-effect waves-light">Agregar Canción</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- sample modal editar cancion content -->
+<div id="responsive-modal-editar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar canción</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
       <div class="modal-body">
@@ -74,24 +215,6 @@
           </div>
 
           <div class="form-group">
-            <label class="col-sm-12">Seleccione el artista</label>
-            <div class="col-sm-12"*ngIf="artistas">
-              <select class="form-control form-control-line" formControlName="artista">
-                <option [value]="artista.id" *ngFor="let artista of artistas">
-                  {{ artista.nombreArtistico }}
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-12">Seleccione el álbum</label>
-            <div class="col-sm-12"*ngIf="albumes">
-              <select class="form-control form-control-line" formControlName="album">
-                <option [value]="album.id" *ngFor="let album of albumes">
-                  {{ album.nombre }}
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
             <label class="col-sm-12">Seleccione el género musical</label>
             <div class="col-sm-12"*ngIf="generos">
               <select class="form-control form-control-line" formControlName="generoMusical">
@@ -104,42 +227,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
-        <button type="button" (click)="agregarNuevaCancion()" class="btn btn-success waves-effect waves-light">Agregar Canción</button>
+        <button type="button" (click)="editarCancion()" class="btn btn-success waves-effect waves-light">Editar Canción</button>
       </div>
     </div>
   </div>
-</div>
-<br>
-<!-- .row -->
-<div class="row">
-  <!-- .col -->
-  <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let cancion of canciones">
-    <div class="card card-body">
-      <div class="row">
-        <div class="col-md-4 col-lg-3 text-center">
-          <a [routerLink]="['/inicio/detalle-artista', cancion.id]"><img src="../assets/images/canciones.png" alt="user"
-              class="img-circle img-responsive"></a>
-        </div>
-        <div class="col-md-8 col-lg-9">
-          <h3 class="box-title m-b-0">{{ cancion.nombre | uppercase}}</h3>
-          <small>Artista: </small>
-          <br>
-          <small>Álbum: </small>
-          <br><br>
-          <h5><strong>Fecha de Lanzamiento:</strong> {{ cancion.fechaLanzamiento | date : 'dd-MM-yyyy' }}</h5>
-          <h5><strong>Número de reproducciones: </strong> $ {{ cancion.reproducciones }}</h5>
-          <h5><strong>Precio: </strong> $ {{ cancion.precio }}</h5>
-        </div>
-        <br><br>
-        <div class="col-sm-12" style="text-align: end;">
-          <button *ngIf="rol === 'Usuario'" class="btn btn-circle btn-success" data-toggle="modal" data-target="#responsive-modal"><i
-            class="mdi  mdi-cart"></i></button>
-          <button class="btn btn-circle btn-secondary" data-toggle="modal" data-target="#responsive-modal"><i
-              class="fa  fa-edit"></i></button>
-          <button class="btn btn-circle btn-danger" (click)="eliminarCancionPorId(cancion)"><i class="fa  fa-trash-o"></i></button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /.col -->
 </div>

@@ -1,0 +1,9 @@
+.fondoGeneros {
+  background-image: url("../../../assets/images/fondo-generos.jpg");
+  background-repeat: repeat;
+  background-size: contain;
+}
+
+th {
+  text-align: center;
+}

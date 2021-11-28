@@ -22,7 +22,15 @@ export class CancionService {
   }
 
   obtenerCancionPorId(id: number) {
-    return this.http.get<Cancion>(`${baseUrl}/canciones/${id}`);
+    return this.http.get<Cancion[]>(`${baseUrl}/canciones/${id}`);
+  }
+
+  obtenerCancionesPorArtista(id: number) {
+    return this.http.get<Cancion[]>(`${baseUrl}/canciones/artista/${id}`);
+  }
+
+  obtenerCancionesDeAlbum(id: number) {
+    return this.http.get<Cancion[]>(`${baseUrl}/canciones/album/${id}`);
   }
 
   agregarNuevaCancion(cancion: Cancion) {

@@ -3,10 +3,44 @@
 <!-- Start Page Content -->
 <!-- ============================================================== -->
 <div style="text-align: end;">
-  <button class="btn btn-circle btn-warning" data-toggle="modal" data-target="#responsive-modal"><i
+  <button class="btn btn-circle btn-warning" (click)="resetearForm()" data-toggle="modal" data-target="#responsive-modal"><i
       class="fa  fa-plus"></i></button>
 </div>
-<!-- sample modal content -->
+<br>
+<!-- .row -->
+<div class="row">
+  <!-- .col -->
+  <div class="col-md-6 col-lg-6 col-xlg-4 " *ngFor="let album of albumes">
+    <div class="card card-body">
+      <div class="row">
+        <div class="col-md-4 col-lg-3 text-center">
+          <a [routerLink]="['/inicio/detalle-album', album.id]"><img src="../assets/images/discos.png" alt="user"
+              class="img-circle img-responsive"></a>
+        </div>
+        <div class="col-md-8 col-lg-9">
+          <h3 class="box-title m-b-0">{{ album.nombre | uppercase}}</h3>
+          <small>Artista: {{ album.nombreArtistico }}</small>
+          <br><br>
+          <h5><strong>Género musical:</strong> {{ album.nombreGeneroMusical }}</h5>
+          <h5><strong>Fecha de Lanzamiento:</strong> {{ album.fechaLanzamiento | date : 'dd-MM-yyyy' }}</h5>
+          <h5><strong class="text-success">Precio: <i class="fa fa-dollar text-success"></i> {{ album.precio }}</strong>
+          </h5>
+        </div>
+        <div class="col-sm-12" style="text-align: end;">
+          <button *ngIf="rol === 'Usuario'" class="btn btn-circle btn-success" data-toggle="modal"
+            data-target="#responsive-modal"><i class="mdi  mdi-cart"></i></button>
+          <button class="btn btn-circle btn-secondary" (click)="cargarInformacionAlbum(album)" data-toggle="modal" data-target="#responsive-modal-editar"><i
+              class="fa  fa-edit"></i></button>
+          <button class="btn btn-circle btn-danger" (click)="eliminarAlbumPorId(album)"><i
+              class="fa  fa-trash-o"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.col -->
+</div>
+
+<!-- sample modal agregar album content -->
 <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true" style="display: none;">
   <div class="modal-dialog">
@@ -29,8 +63,7 @@
               && (formAlbumes.controls.nombre.dirty  || formAlbumes.controls.nombre.touched)">
               El nombre del álbum es <strong>obligatorio</strong>
             </small>
-            <small style="color: red; font-style: italic;"
-              *ngIf="formAlbumes.controls.nombre.errors?.minlength">
+            <small style="color: red; font-style: italic;" *ngIf="formAlbumes.controls.nombre.errors?.minlength">
               El nombre del álbum debe tener mínimo <strong>3 caracteres</strong>
             </small>
             <small style="color: red; font-style: italic;"
@@ -39,8 +72,7 @@
 
           <div class="form-group">
             <label for="message-text" class="control-label">Fecha de Lanzamiento:</label>
-            <input type="date" class="form-control" id="recipient-name"
-              formControlName="fechaLanzamiento">
+            <input type="date" class="form-control" id="recipient-name" formControlName="fechaLanzamiento">
             <small style="color: red; font-style: italic;" *ngIf="formAlbumes.controls.fechaLanzamiento.hasError('required')
               && (formAlbumes.controls.fechaLanzamiento.dirty  || formAlbumes.controls.fechaLanzamiento.touched)">
               La fecha de Lanzamiento es <strong>obligatoria</strong>
@@ -92,39 +124,94 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
-        <button type="button" (click)="agregarNuevoAlbum()" class="btn btn-success waves-effect waves-light">Agregar álbum</button>
+        <button type="button" (click)="agregarNuevoAlbum()" class="btn btn-success waves-effect waves-light">Agregar
+          álbum</button>
       </div>
     </div>
   </div>
 </div>
-<br>
-<!-- .row -->
-<div class="row">
-  <!-- .col -->
-  <div class="col-md-6 col-lg-6 col-xlg-4 " *ngFor="let album of albumes">
-    <div class="card card-body">
-      <div class="row">
-        <div class="col-md-4 col-lg-3 text-center">
-          <a [routerLink]="['/inicio/detalle-album', album.id]"><img src="../assets/images/discos.png" alt="user"
-              class="img-circle img-responsive"></a>
+
+
+<!-- sample modal editar album content -->
+<div id="responsive-modal-editar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar álbum</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <img style="width: 40%" src="./assets/images/discos.png" alt="user" />
         </div>
-        <div class="col-md-8 col-lg-9">
-          <h3 class="box-title m-b-0">{{ album.nombre | uppercase}}</h3>
-          <small>Artista: </small>
-          <br><br>
-          <h5><strong>Fecha de Lanzamiento:</strong> {{ album.fechaLanzamiento | date : 'dd-MM-yyyy' }}</h5>
-          <h5><strong>Precio: </strong> $ {{ album.precio }}</h5>
-        </div>
-        <br><br>
-        <div class="col-sm-12" style="text-align: end;">
-          <button *ngIf="rol === 'Usuario'" class="btn btn-circle btn-success" data-toggle="modal" data-target="#responsive-modal"><i
-            class="mdi  mdi-cart"></i></button>
-          <button class="btn btn-circle btn-secondary" data-toggle="modal" data-target="#responsive-modal"><i
-              class="fa  fa-edit"></i></button>
-          <button class="btn btn-circle btn-danger" (click)="eliminarAlbumPorId(album)"><i class="fa  fa-trash-o"></i></button>
-        </div>
+        <br>
+        <form (ngSubmit)="agregarNuevoAlbum()" [formGroup]="formAlbumes">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Nombre del álbum:</label>
+            <input type="text" class="form-control" id="recipient-name" minlength="3" maxlength="40"
+              formControlName="nombre">
+            <small style="color: red; font-style: italic;" *ngIf="formAlbumes.controls.nombre.hasError('required')
+              && (formAlbumes.controls.nombre.dirty  || formAlbumes.controls.nombre.touched)">
+              El nombre del álbum es <strong>obligatorio</strong>
+            </small>
+            <small style="color: red; font-style: italic;" *ngIf="formAlbumes.controls.nombre.errors?.minlength">
+              El nombre del álbum debe tener mínimo <strong>3 caracteres</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formAlbumes.controls.nombre.errors?.maxlength"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="control-label">Fecha de Lanzamiento:</label>
+            <input type="date" class="form-control" id="recipient-name" formControlName="fechaLanzamiento">
+            <small style="color: red; font-style: italic;" *ngIf="formAlbumes.controls.fechaLanzamiento.hasError('required')
+              && (formAlbumes.controls.fechaLanzamiento.dirty  || formAlbumes.controls.fechaLanzamiento.touched)">
+              La fecha de Lanzamiento es <strong>obligatoria</strong>
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="control-label">Descripción:</label>
+            <textarea class="form-control" id="message-text" minlength="3" maxlength="250"
+              formControlName="descripcion"></textarea>
+            <small style="color: red; font-style: italic;" *ngIf="formAlbumes.controls.descripcion.hasError('required')
+              && (formAlbumes.controls.descripcion.dirty  || formAlbumes.controls.descripcion.touched)">
+              La descripcion es <strong>obligatoria</strong>
+            </small>
+            <small style="color: red; font-style: italic;" *ngIf="formAlbumes.controls.descripcion.errors?.minlength">
+              La descripcion debe tener mínimo <strong>3 caracteres</strong>
+            </small>
+            <small style="color: red; font-style: italic;"
+              *ngIf="formAlbumes.controls.descripcion.errors?.maxlength"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="control-label">Precio del álbum: ($)</label>
+            <input type="number" class="form-control" placeholder="Ejemplo: 58990" id="recipient-name"
+              formControlName="precio">
+            <small style="color: red; font-style: italic;" *ngIf="formAlbumes.controls.precio.hasError('required')
+              && (formAlbumes.controls.precio.dirty  || formAlbumes.controls.precio.touched)">
+              El precio es <strong>obligatorio</strong>
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-12">Seleccione el género musical</label>
+            <div class="col-sm-12" *ngIf="generos">
+              <select class="form-control form-control-line" formControlName="generoMusical">
+                <option [value]="genero.id" *ngFor="let genero of generos">
+                  {{ genero.nombreGeneroMusical }}
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
+        <button type="button" (click)="editarAlbum()" class="btn btn-success waves-effect waves-light">Editar
+          álbum</button>
       </div>
     </div>
   </div>
-  <!-- /.col -->
 </div>

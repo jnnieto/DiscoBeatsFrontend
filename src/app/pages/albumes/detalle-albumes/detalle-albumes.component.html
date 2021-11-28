@@ -1,18 +1,18 @@
-<div class="row">
+<div class="row" *ngIf="album">
   <!-- Column -->
   <div class="col-lg-4 col-xlg-3 col-md-5">
     <div class="card">
       <img class="card-img" src="../assets/images/background/socialdiscosbg.jpg" alt="Card image">
       <div class="card-img-overlay card-inverse social-profile d-flex text-center">
         <div class="align-self-center">
+          <br><br>
           <img src="../assets/images/discos.png" class="img-circle" width="100">
+          <br><br>
           <h3 class="card-title">{{ album.nombre | uppercase}}</h3>
+          <h6 class="card-subtitle" *ngIf="artista">Del artista: {{ artista.nombreArtistico }}</h6>
+          <h6 class="card-subtitle" *ngIf="genero">Género: {{ genero.nombreGeneroMusical }}</h6>
           <br><br>
           <p class="text-white">{{ album.descripcion }} </p>
-          <br><br>
-          <h6 class="card-subtitle">Artista: {{ album.fechaLanzamiento }}</h6>
-          <h6 class="card-subtitle">Género musical: {{ album.fechaLanzamiento }}</h6>
-          <h6 class="card-subtitle">Fecha de lanzamiento: {{ album.fechaLanzamiento | date : 'dd-MM-yyyy' }}</h6>
           <div class="card-body text-center">
             <small class="text-muted p-t-30 db">Escúchalo en</small>
             <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
@@ -32,37 +32,52 @@
             uppercase}} / CANCIONES</a> </li>
       </ul>
       <!-- Tab panes -->
-      <div class="tab-content">
+      <div class="tab-content" style="background-color:#398bf759">
         <div class="tab-pane active" id="home" role="tabpanel">
           <div class="card-body">
-            <div class="profiletimeline">
-              <div class="sl-item">
-                <div class="sl-left"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle" /> </div>
-                <div class="sl-right">
-                  <div><a href="#" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
-                    <p>assign a new task <a href="#"> Design weblayout</a></p>
-                    <div class="row">
-                      <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img1.jpg"
-                          class="img-responsive radius" /></div>
-                      <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img2.jpg"
-                          class="img-responsive radius" /></div>
-                      <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img3.jpg"
-                          class="img-responsive radius" /></div>
-                      <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img4.jpg"
-                          class="img-responsive radius" /></div>
-                    </div>
-                    <div class="like-comm"> <a href="javascript:void(0)" class="link m-r-10">2 comment</a> <a
-                        href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> 5 Love</a>
+            <div class="card-body" *ngFor="let canc of cancion">
+              <div class="profiletimeline">
+                <div class="sl-item">
+                  <div class="sl-left">
+                    <a [routerLink]="['/inicio/detalle-cancion', canc.id]"> <img src="../assets/images/musical.png"
+                        alt="user" class="img-circle w-20" /></a>
+                  </div>
+                  <div class="sl-right">
+                    <div>
+                      <h3><strong>{{ canc.nombre | uppercase }}</strong></h3>
+                      <br>
+                      <div class="row">
+                        <div class="col-lg-4 col-md-10 m-b-20"><img src="../assets/images/background/cancion.jpg"
+                            class="img-responsive radius" /></div>
+                        <div class="column">
+                          <h5><i class="mdi mdi-timer"></i> Duración: {{ canc.duracion }}</h5>
+                          <h5><i class="mdi mdi-calendar"></i> Fecha de Lanzamiento: {{ canc.fechaLanzamiento | date :
+                            'dd-MM-yyyy' }}</h5>
+                          <h5><i class="mdi mdi-bookmark-music"></i> Reproducciones: {{ canc.reproducciones }}</h5>
+
+                          <hr>
+                          <h5 class="m-t-30">Ritmo <span class="pull-right">90%</span></h5>
+                          <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+                              aria-valuemax="100" style="width:80%; height:6px;"> <span class="sr-only">50%
+                                Complete</span> </div>
+                          </div>
+                          <h5 class="m-t-30">Letra<span class="pull-right">95%</span></h5>
+                          <div class="progress">
+                            <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+                              aria-valuemax="100" style="width:90%; height:6px;"> <span class="sr-only">50%
+                                Complete</span> </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <hr>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Column -->
   </div>
-  <!-- Column -->
-</div>

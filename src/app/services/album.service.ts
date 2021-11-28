@@ -22,7 +22,11 @@ export class AlbumService {
   }
 
   obtenerAlbumPorId(id: number) {
-    return this.http.get<Album>(`${baseUrl}/albumes/${id}`);
+    return this.http.get<Album[]>(`${baseUrl}/albumes/${id}`);
+  }
+
+  obtenerAlbumesPorArtista(id: number) {
+    return this.http.get<Album[]>(`${baseUrl}/albumes/artista/${id}`);
   }
 
   agregarNuevoAlbum(album: Album) {

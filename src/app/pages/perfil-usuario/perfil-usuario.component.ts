@@ -37,7 +37,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   obtenerInfoUser(id: string) {
     this.usuarioService.obtenerUsuario(id).subscribe(data => {
-      this.usuario = data;
+      this.usuario = data[0];
     })
   }
 

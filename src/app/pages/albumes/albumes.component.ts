@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-albumes',
   templateUrl: './albumes.component.html',
-  styleUrls: ['./albumes.component.css']
+  styleUrls: []
 })
 export class AlbumesComponent implements OnInit {
 
@@ -23,7 +23,6 @@ export class AlbumesComponent implements OnInit {
   public generos: GeneroMusical[];
 
   public rol: string;
-
 
   constructor(
     private albumService: AlbumService,
@@ -64,7 +63,6 @@ export class AlbumesComponent implements OnInit {
         Validators.required,
       ]],
     });
-
   }
 
   obtenerRolDeUsuario() {
@@ -96,7 +94,6 @@ export class AlbumesComponent implements OnInit {
   }
 
   agregarNuevoAlbum() {
-
     let album = new Album();
 
     album.nombre = this.formAlbumes.get('nombre').value;
@@ -106,21 +103,68 @@ export class AlbumesComponent implements OnInit {
     album.idArtista = this.formAlbumes.get('artista').value;
     album.idGeneroMusical = this.formAlbumes.get('generoMusical').value;
 
-    this.albumService.agregarNuevoAlbum(album).subscribe( () => {
+    this.albumService.agregarNuevoAlbum(album).subscribe(async () => {
       Swal.fire('Álbum agregado satisfactoriamente', '', 'success')
+      await this.delay(2000);
+      window.location.reload();
     }, error => {
-      Swal.fire('Oops! Ha ocurrido un error', error.error.error , 'error')
+      Swal.fire('Oops! Ha ocurrido un error', error.error.error, 'error')
     })
   }
 
-  editarArtista() {
+  cargarInformacionAlbum(album: Album) {
 
+    this.formAlbumes = this.fb.group({
+      id: [ album.id ],
+      nombre: [ album.nombre, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40)
+      ]],
+      fechaLanzamiento: [ album.fechaLanzamiento, [
+        Validators.required
+      ]],
+      descripcion: [ album.descripcion, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(250)
+      ]],
+      precio: [ album.precio, [
+        Validators.required
+      ]],
+      artista: ['', [
+        Validators.required,
+      ]],
+      generoMusical: ['', [
+        Validators.required,
+      ]],
+    });
+
+  }
+
+  editarAlbum() {
+    let album = new Album();
+
+    album.id = this.formAlbumes.get('id').value;
+    album.nombre = this.formAlbumes.get('nombre').value;
+    album.descripcion = this.formAlbumes.get('descripcion').value;
+    album.fechaLanzamiento = this.formAlbumes.get('fechaLanzamiento').value;
+    album.precio = this.formAlbumes.get('precio').value;
+    album.idGeneroMusical = this.formAlbumes.get('generoMusical').value;
+
+    this.albumService.editarAlbum(album).subscribe(async () => {
+      Swal.fire('Álbum editado satisfactoriamente', '', 'success')
+      await this.delay(2000);
+      window.location.reload();
+    }, error => {
+      Swal.fire('Oops! Ha ocurrido un error', error.error.error, 'error')
+    })
   }
 
   eliminarAlbumPorId(album: Album) {
 
     Swal.fire({
-      title: `¿Estás seguro que deseas eliminar el álbum ${ album.nombre }?`,
+      title: `¿Estás seguro que deseas eliminar el álbum ${album.nombre}?`,
       text: 'Una vez realizada esta acción no se puede revertir',
       icon: 'warning',
       showCancelButton: true,
@@ -128,16 +172,26 @@ export class AlbumesComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Eliminar',
       cancelButtonText: 'No, Cancelar'
-  }).then((result) => {
-    if(result.isConfirmed) {
-      this.albumService.eliminarAlbum(album.id).subscribe( () => {
-        Swal.fire('Eliminado!','Álbum eliminado satisfactoriamente', 'success')
-      }, error => {
-        Swal.fire('Oops! Ha ocurrido un error', error.error.error , 'error')
-      })
-    }
-  })
-
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.albumService.eliminarAlbum(album.id).subscribe(async () => {
+          Swal.fire('Eliminado!', 'Álbum eliminado satisfactoriamente', 'success')
+          await this.delay(2000);
+          window.location.reload();
+        }, error => {
+          Swal.fire('Oops! Ha ocurrido un error', error.error.error, 'error')
+        })
+      }
+    })
   }
 
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  resetearForm() {
+    this.formAlbumes.reset();
+    this.formAlbumes.markAsPristine;
+    this.formAlbumes.markAsTouched;
+  }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Artista } from './../models/artista.model';
 import { AuthService } from './auth.service';
+import { Ocupacion } from './../models/ocupacion.model';
 
 const baseUrl = environment.base_url;
 
@@ -24,7 +25,7 @@ export class ArtistaService {
   }
 
   obtenerArtistaPorId(id: number) {
-    return this.http.get<Artista[]>(`${baseUrl}/artistas/${id}`);
+    return this.http.get<Artista[]>(`${baseUrl}/artistas/${ id.toString() }`);
   }
 
   agregarNuevoArtista(artista: Artista) {
@@ -49,6 +50,10 @@ export class ArtistaService {
         'token': this.authService.token
       }
     });
+  }
+
+  obtenerOcupaciones() {
+    return this.http.get<Ocupacion[]>(`${baseUrl}/artistas/ocupaciones`);
   }
 
 }
