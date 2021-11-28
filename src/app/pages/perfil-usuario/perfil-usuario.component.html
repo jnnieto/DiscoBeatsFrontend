@@ -1,87 +1,178 @@
 <div class="row" *ngIf="usuario">
-    <!-- Column -->
-    <div class="col-lg-4 col-xlg-3 col-md-5">
-        <div class="card">
-            <div class="card-body">
-                <aside class="text-center"> <img src="../assets/images/users/5.jpg" class="img-circle" width="150" />
-                    <h4 class="card-title m-t-10">{{ usuario.nombreUsuario }}</h4>
-                    <h6 class="card-subtitle">{{ rol }}</h6>
-                    <div class="row text-center justify-content-md-center">
-                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
-                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
-                    </div>
-                </aside>
-            </div>
-            <div>
-                <hr> </div>
-            <div class="card-body"> <small class="text-muted">Correo electrónico </small>
-                <h6>{{ usuario.correo }}</h6>
-                <small class="text-muted p-t-30 db">Social Profile</small>
-                <br/>
-                <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>
-                <button class="btn btn-circle btn-secondary"><i class="fa fa-twitter"></i></button>
-                <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
-                <br/>
-                <br/>
-                <div class="row text-center justify-content-md-center">
-                    <button type="button" class="btn waves-effect waves-light btn-danger" (click)="cerrarSesion()">Cerrar sesión</button>
-                </div>
-            </div>
+  <!-- Column -->
+  <div class="col-lg-4 col-xlg-3 col-md-5">
+    <div class="card">
+      <div class="card-body">
+        <aside class="text-center"> <img src="../assets/images/user.png" class="img-circle" width="170" />
+          <h4 class="card-title m-t-10">{{ usuario.nombreUsuario }}</h4>
+          <h6 class="card-subtitle">{{ usuario.nomnbreRol }}</h6>
+        </aside>
+      </div>
+      <div>
+        <hr>
+      </div>
+      <div class="card-body"> <small class="text-muted">Correo electrónico </small>
+        <h6>{{ usuario.correo }}</h6>
+        <small class="text-muted p-t-30 db">Social Profile</small>
+        <br />
+        <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>
+        <button class="btn btn-circle btn-secondary"><i class="fa fa-twitter"></i></button>
+        <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
+        <br />
+        <br />
+        <div class="row text-center justify-content-md-center">
+          <button type="button" class="btn waves-effect waves-light btn-danger" (click)="cerrarSesion()">Cerrar
+            sesión</button>
         </div>
+      </div>
     </div>
-    <!-- Column -->
-    <!-- Column -->
-    <div class="col-lg-8 col-xlg-9 col-md-7">
-        <div class="card">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs profile-tab" role="tablist">
-                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#shopping" role="tab">Compras</a> </li>
-                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Configuración</a> </li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <!--compras tab-->
-                <div class="tab-pane active" id="shopping" role="tabpanel">
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="col-lg-8 col-xlg-9 col-md-7">
+    <div class="card">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs profile-tab" role="tablist">
+        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#shopping" role="tab">Compras</a> </li>
+        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Configuración</a> </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!--compras tab-->
+        <div class="tab-pane active" id="shopping" role="tabpanel">
+          <div class="card-body">
+            <div class="row">
+              <div class="albumes">
+                <ng-container *ngIf="albumesComprados; then thenAlbumes; else elseAlbumes"></ng-container>
+                <ng-template #thenAlbumes>
+                  <!-- Column -->
+                  <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <p class="m-t-30">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries </p>
-                            <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        </div>
+                      <h4 class="card-title">Estos son lo álbumes que tienes comprados en DiscoBeats</h4>
+                      <table class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+                        <thead>
+                          <tr>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Imagen</th>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Nombre del álbum</th>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Fecha de compra</th>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Valor de la compra
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let compra of albumesComprados">
+                            <td><img src="./assets/images/discos.png" width="30" alt="user" /></td>
+                            <td class="title"><a class="link" href="javascript:void(0)">{{ compra.album }}</a></td>
+                            <td>{{ compra.fechaCompra }}</td>
+                            <td>$ {{ compra.precioTotal }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                </div>
-                <!--configuración tab-->
-                <div class="tab-pane" id="settings" role="tabpanel">
+                  </div>
+                </ng-template>
+                <ng-template #elseAlbumes>
+                  <p>No tienes albumes comprados</p>
+                </ng-template>
+              </div>
+              <div class="canciones">
+                <ng-container *ngIf="cancionesCompradas; then thenTemplate; else elseTemplate"></ng-container>
+                <ng-template #thenTemplate>
+                  <!-- Column -->
+                  <div class="card">
                     <div class="card-body">
-                        <form class="form-horizontal form-material">
-                            <div class="form-group">
-                                <label class="col-md-12">Nombre de usuario</label>
-                                <div class="col-md-12">
-                                    <input type="text" [placeholder]="usuario.nombreUsuario" class="form-control form-control-line">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="example-email" class="col-md-12">Correo electrónico</label>
-                                <div class="col-md-12">
-                                    <input type="email" [placeholder]="usuario.correo" class="form-control form-control-line" name="example-email" id="example-email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-12">Constraseña</label>
-                                <div class="col-md-12">
-                                    <input type="password" [value]="usuario.contrasena" class="form-control form-control-line">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <button class="btn btn-success" (click)="actualizarInfo()">Actualizar perfil</button>
-                                </div>
-                            </div>
-                        </form>
+                      <h4 class="card-title">Estos son lo albumes que tienes comprados en DiscoBeats</h4>
+                      <table class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+                        <thead>
+                          <tr>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Imagen</th>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Nombre de la canción</th>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Fecha de compra</th>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Valor de la compra
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let compra of cancionesCompradas">
+                            <td><img src="./assets/images/canciones.png" width="30" alt="user" /></td>
+                            <td class="title"><a class="link" href="javascript:void(0)">{{ compra.cancion }}</a></td>
+                            <td>{{ compra.fechaCompra }}</td>
+                            <td>$ {{ compra.precioTotal }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                </div>
+                  </div>
+                </ng-template>
+                <ng-template #elseTemplate>
+                  <p>No tienes canciones compradas</p>
+                </ng-template>
+              </div>
             </div>
+          </div>
         </div>
+        <!--configuración tab-->
+        <div class="tab-pane" id="settings" role="tabpanel">
+          <div class="card-body" *ngIf="usuario">
+            <form class="form-horizontal form-material" [formGroup]="formUsuario">
+              <div class="form-group">
+                <label class="col-md-12">Nombre de usuario</label>
+                <div class="col-md-12">
+                  <input type="text" class="form-control form-control-line" formControlName="nombre"/>
+                </div>
+              </div>
+              <div class="col text-danger">
+                <small *ngIf="formUsuario.controls.nombre.hasError('required')
+                    && (formUsuario.controls.nombre.dirty
+                    || formUsuario.controls.nombre.touched)">
+                    El nombre de usuario es <strong>obligatorio</strong>
+                </small>
+                <small *ngIf="formUsuario.controls.nombre.hasError('minlength')">
+                    El nombre de usuario debe tener mínimo <strong>3 caracteres</strong>
+                </small>
+            </div>
+              <div class="form-group">
+                <label for="example-email" class="col-md-12">Correo electrónico</label>
+                <div class="col-md-12">
+                  <input type="email" class="form-control form-control-line"
+                    name="example-email" id="example-email" formControlName="correo">
+                </div>
+                <div class="col text-danger">
+                  <small class="form-control-feedback" *ngIf="formUsuario.controls.correo.hasError('required')
+                      && (formUsuario.controls.correo.dirty
+                      || formUsuario.controls.correo.touched)">
+                      El correo es <strong>obligatorio</strong>
+                  </small>
+                  <small class="form-control-feedback" *ngIf="formUsuario.controls.correo.hasError('email')">
+                      El correo debe ser <strong>válido</strong>
+                  </small>
+              </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-12">Constraseña</label>
+                <div class="col-md-12">
+                  <input type="password" class="form-control form-control-line" formControlName="contrasena">
+                </div>
+                <div class="col text-danger">
+                  <small *ngIf="formUsuario.controls.contrasena.hasError('required')
+                      && (formUsuario.controls.contrasena.dirty || formUsuario.controls.contrasena.touched)">
+                      La contraseña es <strong>obligatoria</strong>
+                  </small>
+                  <small *ngIf="formUsuario.controls.contrasena.hasError('minlength')">
+                      La contraseña debe tener mínimo<strong>6 caracteres</strong>
+                  </small>
+              </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <button class="btn btn-success" (click)="actualizarInfo()">Actualizar perfil</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- Column -->
+  </div>
+  <!-- Column -->
 </div>

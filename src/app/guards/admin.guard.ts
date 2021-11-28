@@ -15,11 +15,11 @@ export class AdminGuard implements CanActivate {
       if (this.decodeToken().rol === 'Administrador') {
         return true;
       } else {
-        this.router.navigateByUrl('/inicio');
+        this.router.navigateByUrl('');
         return false;
       }
   }
-  
+
   decodeToken() {
     let token = sessionStorage.getItem('token');
     const helper = new JwtHelperService();

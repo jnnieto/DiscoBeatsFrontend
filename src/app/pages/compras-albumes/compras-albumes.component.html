@@ -1,1 +1,32 @@
-<p>compras-albumes works!</p>
+<ng-container *ngIf="historialCompras; then thenTemplate; else elseTemplate"></ng-container>
+<ng-template #thenTemplate>
+  <!-- Column -->
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Historias de ventas de los álbumes de DiscoBeats</h4>
+      <table class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+        <thead>
+          <tr>
+            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Nombre del álbum</th>
+            <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col
+              data-tablesaw-priority="3">Usuario</th>
+            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Fecha de compra</th>
+            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Valor de la compra</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let compra of historialCompras">
+            <td class="title"><a class="link" href="javascript:void(0)">{{ compra.album }}</a></td>
+            <td>{{ compra.nombreUsuario }}</td>
+            <td>{{ compra.fechaCompra }}</td>
+            <td>$ {{ compra.precioTotal }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+<ng-template #elseTemplate>
+  <p>Los usuarios no han comprado álbumes en DiscoBeats</p>
+</ng-template>
+

@@ -40,7 +40,11 @@ export class UsuariosService {
       headers: {
         'token': this.authService.token
       }
-    });
+    }).pipe(
+      tap(({ token }: any) => {
+        sessionStorage.setItem('token', token);
+      })
+    );
   }
 
   eliminarUsuario(id: number) {

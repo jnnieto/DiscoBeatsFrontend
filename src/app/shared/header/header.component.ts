@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   infoUsuario() {
     this.authService.obtenerInfoUsuario().subscribe(data => {
-      this.usuario = data;
+      this.usuario = data[0];
     })
   }
 
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
   }
 
   decodeToken() {
-    
+
     let token = sessionStorage.getItem('token');
     const helper = new JwtHelperService();
     const decodeToken = helper.decodeToken(token);

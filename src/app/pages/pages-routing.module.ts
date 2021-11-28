@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './../guards/auth.guard';
+import { AdminGuard } from './../guards/admin.guard';
 
 import { PagesComponent } from './pages.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
@@ -32,8 +33,8 @@ const routes: Routes = [
         { path: 'canciones', component: CancionesComponent, data: { titulo: 'Canciones' }  },
         { path: 'detalle-cancion/:id', component: DetalleCancionesComponent, data: { titulo: 'Detalle Canción' }  },
         { path: 'perfil-usuario/:id', component: PerfilUsuarioComponent, data: { titulo: 'Perfil de usuario' } },
-        { path: 'compras-canciones', component: ComprasCancionesComponent, data: { titulo: 'Compra Canciones' } },
-        { path: 'compras-albumes', component: ComprasAlbumesComponent, data: { titulo: 'Compra Álbumes' } },
+        { path: 'compras-canciones', component: ComprasCancionesComponent, data: { titulo: 'Compra Canciones' }, canActivate: [ AdminGuard ] },
+        { path: 'compras-albumes', component: ComprasAlbumesComponent, data: { titulo: 'Compra Álbumes' }, canActivate: [ AdminGuard ] },
       ]
     },
 ];

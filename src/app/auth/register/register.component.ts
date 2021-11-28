@@ -34,19 +34,15 @@ export class RegisterComponent implements OnInit {
     contrasena: ['', [
       Validators.required,
       Validators.minLength(6)
-    ]],
-    constrasena2: ['', [
-      Validators.required,
-      Validators.minLength(6)
     ]]
   })
 
   public roles: Rol[];
-  
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private usuarioService: UsuariosService, 
+    private usuarioService: UsuariosService,
     private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -69,14 +65,14 @@ export class RegisterComponent implements OnInit {
         .subscribe(() => {
           console.log('Usuario creado correctamente');
           this.router.navigate(['inicio-sesion']);
-        }, error => {   
+        }, error => {
           Swal.fire('Error', error.error.error, 'error');
         });
-    
+
   }
 
   convertirARegistro(): Registro {
-    
+
     let registro: Registro = {
       nombreUsuario: this.registroForm.get('nombreUsuario').value,
       idRol: this.registroForm.get('rol').value,
@@ -86,13 +82,6 @@ export class RegisterComponent implements OnInit {
 
     return registro;
 
-  }
-
-  contrasenasIguales() {
-    const pass1 = this.registroForm.get('contrasena').value;
-    const pass2 = this.registroForm.get('constrasena2').value;
-
-    return (pass1 !== pass2) ? false : true;
   }
 
 }
