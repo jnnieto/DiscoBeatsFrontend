@@ -1,1 +1,125 @@
-<p>generos works!</p>
+<h4>Existe gran variedad de géneros musicales, pues la música ha evolucionado a lo largo del tiempo y cada cultura ha
+  desarrollado sus propios estilos musicales.</h4>
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<div style="text-align: end;" *ngIf="rol === 'Administrador'">
+  <button class="btn btn-circle btn-danger" (click)="resetearForm()" data-toggle="modal" data-target="#responsive-modal"><i
+      class="fa  fa-plus"></i></button>
+</div>
+<br>
+
+<div class="fondoGeneros">
+  <!-- row -->
+  <div class="row" style="display: flex; justify-content: center;">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body text-center">
+          <h4 class="card-title">LOS GÉNEROS MUSICALES</h4>
+          <h6 class="card-subtitle">Más relevantes y populares en nuestra sociedad</h6>
+          <div class="table-responsive">
+            <table class="table full-color-table full-inverse-table hover-table">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Nombre</th>
+                  <th *ngIf="rol === 'Administrador'">Acciones</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let genero of generos">
+                <tr>
+                  <td>{{ genero.id }}</td>
+                  <td>{{ genero.nombreGeneroMusical }}</td>
+                  <td class="text-nowrap" *ngIf="rol === 'Administrador'">
+                    <button (click)="cargarInfoGeneroMusical(genero)" style="font-size: 20px;"
+                      class="fa fa-pencil text-info m-r-10" data-original-title="Editar" data-toggle="modal"
+                      data-target="#responsive-modal-editar"></button>
+                    <button (click)="eliminarGeneroMusical(genero)" style="font-size: 20px;"
+                      class="fa fa-trash-o text-danger" data-original-title="Eliminar"></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  modal content agregar género musical -->
+  <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Agregar nuevo género musical</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+
+          <form (ngSubmit)="agregarNuevoGenero()" [formGroup]="formGeneros">
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Ingresa el nombre del género musical:</label>
+              <input type="text" class="form-control" id="recipient-name" minlength="3" maxlength="15"
+                formControlName="nombreGenero">
+              <small style="color: red; font-style: italic;" *ngIf="formGeneros.controls.nombreGenero.hasError('required')
+              && (formGeneros.controls.nombreGenero.dirty  || formGeneros.controls.nombreGenero.touched)">
+                El nombre del género es <strong>obligatorio</strong>
+              </small>
+              <small style="color: red; font-style: italic;"
+                *ngIf="formGeneros.controls.nombreGenero.errors?.minlength">
+                El nombre del género debe tener mínimo <strong>3 caracteres</strong>
+              </small>
+              <small style="color: red; font-style: italic;"
+                *ngIf="formGeneros.controls.nombreGenero.errors?.maxlength"></small>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success waves-effect waves-light" [disabled]="formGeneros.invalid"
+            (click)="agregarNuevoGenero()">Agregar género</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  modal editar género musical -->
+  <div id="responsive-modal-editar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Editar género musical</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+
+          <form (ngSubmit)="editarGeneroMusical()" [formGroup]="formGeneros">
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Ingresa el nuevo nombre del género musical:</label>
+              <input type="text" class="form-control" id="recipient-name" minlength="3" maxlength="15"
+                formControlName="nombreGenero">
+              <small style="color: red; font-style: italic;" *ngIf="formGeneros.controls.nombreGenero.hasError('required')
+              && (formGeneros.controls.nombreGenero.dirty  || formGeneros.controls.nombreGenero.touched)">
+                El nombre del género es <strong>obligatorio</strong>
+              </small>
+              <small style="color: red; font-style: italic;"
+                *ngIf="formGeneros.controls.nombreGenero.errors?.minlength">
+                El nombre del género debe tener mínimo <strong>3 caracteres</strong>
+              </small>
+              <small style="color: red; font-style: italic;"
+                *ngIf="formGeneros.controls.nombreGenero.errors?.maxlength"></small>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success waves-effect waves-light" [disabled]="formGeneros.invalid"
+            (click)="editarGeneroMusical()">Editar género</button>
+        </div>
+      </div>
+    </div>
+  </div>

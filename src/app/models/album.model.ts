@@ -6,8 +6,10 @@ export class Album {
   public nombre: string;
   public descripcion: string;
   public fechaLanzamiento: string;
-  public precio: number;
   public imagen?: File;
+  public precio: number;
+  public nombreArtistico?: string;
+  public nombreGeneroMusical?: string;
 
   constructor( album?: Album ) {}
 }

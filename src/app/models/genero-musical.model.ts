@@ -1,6 +1,7 @@
 export class GeneroMusical {
-    constructor(
-        public nombreGeneroMusical: string,
-        public id?: number
-    ) {}
+
+  public id?: number;
+  public nombreGeneroMusical: string;
+
+  constructor( generoMusical ?: GeneroMusical) {}
 }

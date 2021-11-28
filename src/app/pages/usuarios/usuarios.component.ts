@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { Rol } from './../../models/roles.model';
@@ -85,51 +85,6 @@ export class UsuariosComponent implements OnInit {
 
     this.usuarioService.agregarNuevoUsuario(usuario).subscribe(async () => {
       Swal.fire('Usuario agregado satisfactoriamente', '', 'success')
-      await this.delay(2000);
-      window.location.reload();
-    }, error => {
-      Swal.fire('Oops! Ha ocurrido un error', error.error.error, 'error')
-    })
-
-  }
-
-  cargarInformacionUsuario(usuario: Usuario) {
-
-    this.formUsuarios = this.fb.group({
-      id: [ usuario.id ],
-      nombreUsuario: [ usuario.nombreUsuario , [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(15)
-      ]],
-      correo: [ usuario.correo , [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(30)
-      ]],
-      contrasena: [ usuario.contrasena , [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(25)
-      ]],
-      rolUsuario: [ '' , [
-        Validators.required,
-      ]],
-    });
-  }
-
-  editarUsuario() {
-
-    let usuario = new Usuario();
-
-    usuario.id = this.formUsuarios.get('id').value;
-    usuario.idRol = this.formUsuarios.get('rolUsuario').value;
-    usuario.nombreUsuario = this.formUsuarios.get('nombreUsuario').value;
-    usuario.correo = this.formUsuarios.get('correo').value;
-    usuario.contrasena = this.formUsuarios.get('contrasena').value;
-
-    this.usuarioService.actualizarUsuario(usuario).subscribe(async () => {
-      Swal.fire('Usuario editado satisfactoriamente', '', 'success')
       await this.delay(2000);
       window.location.reload();
     }, error => {

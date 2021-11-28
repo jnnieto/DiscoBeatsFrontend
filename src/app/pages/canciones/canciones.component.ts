@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-canciones',
   templateUrl: './canciones.component.html',
-  styleUrls: ['./canciones.component.css']
+  styleUrls: []
 })
 export class CancionesComponent implements OnInit {
 
@@ -60,7 +60,7 @@ export class CancionesComponent implements OnInit {
         Validators.required
       ]],
       precio: ['', [
-      Validators.required
+        Validators.required
       ]],
       artista: ['', [
         Validators.required,
@@ -112,7 +112,6 @@ export class CancionesComponent implements OnInit {
   }
 
   agregarNuevaCancion() {
-
     let cancion = new Cancion();
 
     cancion.nombre = this.formCanciones.get('nombre').value;
@@ -122,23 +121,73 @@ export class CancionesComponent implements OnInit {
     cancion.precio = this.formCanciones.get('precio').value;
     cancion.idArtista = this.formCanciones.get('artista').value;
     cancion.idAlbum = this.formCanciones.get('album').value;
-    cancion.idGenero = this.formCanciones.get('generoMusical').value;
+    cancion.idGeneroMusical = this.formCanciones.get('generoMusical').value;
 
-    this.cancionService.agregarNuevaCancion(cancion).subscribe( () => {
+    this.cancionService.agregarNuevaCancion(cancion).subscribe( async () => {
       Swal.fire('Canción agregada satisfactoriamente', '', 'success')
+      await this.delay(2000);
+      window.location.reload();
     }, error => {
-      Swal.fire('Oops! Ha ocurrido un error', error.error.error , 'error')
+      Swal.fire('Oops! Ha ocurrido un error', error.error.error, 'error')
     })
   }
 
-  editarArtista() {
+  cargarInformacionCancion(cancion: Cancion) {
+    this.formCanciones = this.fb.group({
+      id: [ cancion.id ],
+      nombre: [ cancion.nombre, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25)
+      ]],
+      fechaLanzamiento: [ cancion.fechaLanzamiento, [
+        Validators.required
+      ]],
+      reproducciones: [ cancion.reproducciones, [
+        Validators.required
+      ]],
+      duracion: [ cancion.duracion, [
+        Validators.required
+      ]],
+      precio: [ cancion.precio, [
+        Validators.required
+      ]],
+      artista: ['', [
+        Validators.required,
+      ]],
+      album: ['', [
+        Validators.required,
+      ]],
+      generoMusical: ['', [
+        Validators.required,
+      ]],
+    });
+  }
 
+  editarCancion() {
+    let cancion = new Cancion();
+
+    cancion.id = this.formCanciones.get('id').value;
+    cancion.nombre = this.formCanciones.get('nombre').value;
+    cancion.fechaLanzamiento = this.formCanciones.get('fechaLanzamiento').value;
+    cancion.duracion = this.formCanciones.get('duracion').value;
+    cancion.reproducciones = this.formCanciones.get('reproducciones').value;
+    cancion.precio = this.formCanciones.get('precio').value;
+    cancion.idGeneroMusical = this.formCanciones.get('generoMusical').value;
+
+    this.cancionService.editarCancion(cancion).subscribe( async () => {
+      Swal.fire('Canción editada satisfactoriamente', '', 'success')
+      await this.delay(2000);
+      window.location.reload();
+    }, error => {
+      Swal.fire('Oops! Ha ocurrido un error', error.error.error, 'error')
+    })
   }
 
   eliminarCancionPorId(cancion: Cancion) {
 
     Swal.fire({
-      title: `¿Estás seguro que deseas eliminar la canción ${ cancion.nombre }?`,
+      title: `¿Estás seguro que deseas eliminar la canción ${cancion.nombre}?`,
       text: 'Una vez realizada esta acción no se puede revertir',
       icon: 'warning',
       showCancelButton: true,
@@ -146,15 +195,27 @@ export class CancionesComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Eliminar',
       cancelButtonText: 'No, Cancelar'
-  }).then((result) => {
-    if(result.isConfirmed) {
-      this.cancionService.eliminarCancion(cancion.id).subscribe( () => {
-        Swal.fire('Eliminado!','Canción eliminada satisfactoriamente', 'success')
-      }, error => {
-        Swal.fire('Oops! Ha ocurrido un error', error.error.error , 'error')
-      })
-    }
-  })
-
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cancionService.eliminarCancion(cancion.id).subscribe( async () => {
+          Swal.fire('Eliminado!', 'Canción eliminada satisfactoriamente', 'success')
+          await this.delay(2000);
+          window.location.reload();
+        }, error => {
+          Swal.fire('Oops! Ha ocurrido un error', error.error.error, 'error')
+        })
+      }
+    })
   }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  resetearForm() {
+    this.formCanciones.reset();
+    this.formCanciones.markAsPristine;
+    this.formCanciones.markAsTouched;
+  }
+
 }

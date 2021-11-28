@@ -3,7 +3,7 @@
 <!-- Start Page Content -->
 <!-- ============================================================== -->
 <div style="text-align: end;" *ngIf="rol === 'Administrador'">
-  <button class="btn btn-circle btn-info" data-toggle="modal" data-target="#responsive-modal"><i
+  <button class="btn btn-circle btn-success" data-toggle="modal" data-target="#responsive-modal"><i
       class="fa  fa-plus"></i></button>
 </div>
 
@@ -19,14 +19,12 @@
         </div>
         <div class="col-md-8 col-lg-9">
           <h3 class="box-title m-b-0">{{ usuario.nombreUsuario | uppercase}}</h3>
-          <small>ROL DE USUARIO</small>
+          <small>{{ usuario.nomnbreRol }}</small>
           <br><br>
           <h5><strong>Correo electrónico:</strong> {{ usuario.correo }}</h5>
         </div>
       </div>
       <div style="text-align: end;" *ngIf="rol === 'Administrador'">
-        <button class="btn btn-circle btn-secondary" (click)="cargarInformacionUsuario(usuario)" data-toggle="modal"
-          data-target="#responsive-modal-editar"><i class="fa  fa-edit"></i></button>
         <button class="btn btn-circle btn-danger" (click)="eliminarUsuario(usuario)"><i
             class="fa  fa-trash-o"></i></button>
       </div>
@@ -113,90 +111,6 @@
         <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-success waves-effect waves-light" [disabled]="formUsuarios.invalid"
           (click)="agregarNuevoUsuario()">Agregar usuario</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!--  modal content editar usuario -->
-<div id="responsive-modal-editar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" style="display: none;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Editar nuevo usuario</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      </div>
-      <div class="modal-body">
-        <div class="text-center">
-          <img style="width: 30%" src="./assets/images/usuarios.png" alt="user" />
-        </div>
-        <br>
-        <form (ngSubmit)="agregarNuevoUsuario()" [formGroup]="formUsuarios">
-          <div class="form-group">
-            <label for="recipient-name" class="control-label">Nombre de usuario:</label>
-            <input type="text" class="form-control" id="recipient-name" minlength="3" maxlength="15"
-              formControlName="nombreUsuario">
-            <small style="color: red; font-style: italic;" *ngIf="formUsuarios.controls.nombreUsuario.hasError('required')
-              && (formUsuarios.controls.nombreUsuario.dirty  || formUsuarios.controls.nombreUsuario.touched)">
-              El nombre de usuario es <strong>obligatorio</strong>
-            </small>
-            <small style="color: red; font-style: italic;"
-              *ngIf="formUsuarios.controls.nombreUsuario.errors?.minlength">
-              El nombre de usuario debe tener mínimo <strong>3 caracteres</strong>
-            </small>
-            <small style="color: red; font-style: italic;"
-              *ngIf="formUsuarios.controls.nombreUsuario.errors?.maxlength"></small>
-          </div>
-
-
-          <div class="form-group">
-            <label for="recipient-correo" class="control-label">Correo electrónico:</label>
-            <input type="email" class="form-control" id="recipient-correo" minlength="10" maxlength="30"
-              formControlName="correo">
-            <small style="color: red; font-style: italic;" *ngIf="formUsuarios.controls.correo.hasError('required')
-              && (formUsuarios.controls.correo.dirty  || formUsuarios.controls.correo.touched)">
-              El correo electrónico es <strong>obligatorio</strong>
-            </small>
-            <small style="color: red; font-style: italic;" *ngIf="formUsuarios.controls.correo.errors?.minlength">
-              El correo electrónico debe tener mínimo <strong>10 caracteres</strong>
-            </small>
-            <small style="color: red; font-style: italic;"
-              *ngIf="formUsuarios.controls.correo.errors?.maxlength"></small>
-          </div>
-
-          <div class="form-group">
-            <label for="recipient-contra" class="control-label">Contraseña:</label>
-            <input type="password" class="form-control" id="recipient-contra" minlength="6" maxlength="25"
-              formControlName="contrasena">
-            <small style="color: red; font-style: italic;" *ngIf="formUsuarios.controls.contrasena.hasError('required')
-              && (formUsuarios.controls.contrasena.dirty  || formUsuarios.controls.contrasena.touched)">
-              La contraseña es <strong>obligatorio</strong>
-            </small>
-            <small style="color: red; font-style: italic;" *ngIf="formUsuarios.controls.contrasena.errors?.minlength">
-              La contraseña debe tener mínimo <strong>6 caracteres</strong>
-            </small>
-            <small style="color: red; font-style: italic;"
-              *ngIf="formUsuarios.controls.contrasena.errors?.maxlength"></small>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-12">Seleccione el rol de usuario</label>
-            <div class="col-sm-12" *ngIf="roles">
-              <select class="form-control form-control-line" formControlName="rolUsuario">
-                <option [value]="rol.id" *ngFor="let rol of roles">
-                  {{ rol.rol }}
-                </option>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-info waves-effect waves-light" [disabled]="formUsuarios.invalid"
-          (click)="editarUsuario()">Editar usuario</button>
       </div>
     </div>
   </div>
