@@ -27,12 +27,14 @@
           </h5>
         </div>
         <div class="col-sm-12" style="text-align: end;">
-          <button *ngIf="rol === 'Usuario'" class="btn btn-circle btn-success" data-toggle="modal"
-            data-target="#responsive-modal"><i class="mdi  mdi-cart"></i></button>
-          <button class="btn btn-circle btn-secondary" (click)="cargarInformacionAlbum(album)" data-toggle="modal" data-target="#responsive-modal-editar"><i
-              class="fa  fa-edit"></i></button>
-          <button class="btn btn-circle btn-danger" (click)="eliminarAlbumPorId(album)"><i
-              class="fa  fa-trash-o"></i></button>
+            <button *ngIf="rol === 'Usuario' && album.fueComprado" (click)="comprarAlbum(album)" class="btn btn-circle btn-success">
+              <i class="mdi mdi-shopping-music"></i></button>
+            <button *ngIf="rol === 'Usuario' && !album.fueComprado" class="btn btn-circle btn-primary">
+              <i class="mdi mdi-briefcase-check"></i></button>
+            <button class="btn btn-circle btn-secondary" (click)="cargarInformacionAlbum(album)" data-toggle="modal"
+              data-target="#responsive-modal-editar"><i class="fa  fa-edit"></i></button>
+            <button class="btn btn-circle btn-danger" (click)="eliminarAlbumPorId(album)"><i
+                class="fa  fa-trash-o"></i></button>
         </div>
       </div>
     </div>
@@ -124,7 +126,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
-        <button type="button" (click)="agregarNuevoAlbum()" class="btn btn-success waves-effect waves-light">Agregar
+        <button type="button" (click)="agregarNuevoAlbum()" [disabled]="formAlbumes.invalid" class="btn btn-success waves-effect waves-light">Agregar
           álbum</button>
       </div>
     </div>

@@ -7,6 +7,8 @@ import { GeneroMusical } from 'src/app/models/genero-musical.model';
 import { ArtistaService } from 'src/app/services/artista.service';
 import { GeneroMusicalesService } from 'src/app/services/genero-musicales.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CompraService } from 'src/app/services/compra.service';
+import { CompraAlbum } from 'src/app/models/compra-album.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,6 +23,7 @@ export class AlbumesComponent implements OnInit {
   public albumes: Album[];
   public artistas: Artista[];
   public generos: GeneroMusical[];
+  public comprasAUsuario: CompraAlbum[];
 
   public rol: string;
 
@@ -29,12 +32,14 @@ export class AlbumesComponent implements OnInit {
     private artistaService: ArtistaService,
     private generoService: GeneroMusicalesService,
     private authService: AuthService,
+    private compraService: CompraService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
 
     this.obtenerRolDeUsuario();
     this.obtenerListaAlbumes();
+    this.cargarComprasUsuario();
     this.obtenerArtistas();
     this.obtenerGenerosMusicales();
 
@@ -72,6 +77,9 @@ export class AlbumesComponent implements OnInit {
   obtenerListaAlbumes() {
     this.albumService.obtenerAlbumes().subscribe(data => {
       this.albumes = data;
+      for(let album of this.albumes) {
+        album.fueComprado = true;
+      }
     }, error => {
       console.log(error);
     })
@@ -183,6 +191,56 @@ export class AlbumesComponent implements OnInit {
         })
       }
     })
+  }
+
+  comprarAlbum(album: Album) {
+    Swal.fire({
+      title: `¿Estás seguro que deseas comprar el álbum ${album.nombre}?`,
+      text: 'Una vez realizada esta acción, podrás disfrutar y reproduccir este álbum  las veces que desees desde tu perfil',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#06D79C',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, realizar compra',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        let compraAlbum = new CompraAlbum();
+
+        compraAlbum.idAlbum = album.id;
+        compraAlbum.idUsuario = this.authService.decodeToken.sub;
+        compraAlbum.precioTotal = album.precio;
+
+        this.compraService.realizarCompraAlbum(compraAlbum).subscribe(async () => {
+          Swal.fire('Felicidades!', `Has realizado satistactoriamente la compra del álbum ${ album.nombre }`, 'success')
+          await this.delay(2000);
+          window.location.reload();
+        }, error => {
+          Swal.fire('Oops! Ha ocurrido un error', error.error.error, 'error')
+        })
+      }
+    })
+  }
+
+  cargarComprasUsuario() {
+    this.compraService.obtenerComprasAUsuario(this.authService.decodeToken.sub).subscribe( data => {
+      this.comprasAUsuario = data;
+      this.validarAlbumesComprados();
+    })
+
+  }
+
+  validarAlbumesComprados() {
+    if (this.rol !== 'Administrador' && this.comprasAUsuario) {
+      for(let album of this.albumes) {
+        for(let compra of this.comprasAUsuario) {
+          if(compra.idAlbum === album.id) {
+            album.fueComprado = false;
+          }
+        }
+      }
+    }
   }
 
   delay(ms: number) {

@@ -4,7 +4,7 @@
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">Historias de ventas de lass canciones de DiscoBeats</h4>
-      <table class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+      <table class="tablesaw color-bordered-table purple-bordered-table table-hover table" data-tablesaw-mode="swipe">
         <thead>
           <tr>
             <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Nombre de la canción</th>
@@ -17,7 +17,7 @@
         <tbody>
           <tr *ngFor="let compra of historialCompras">
             <td class="title"><a class="link" href="javascript:void(0)">{{ compra.cancion }}</a></td>
-            <td>{{ compra.nombreUsuario }}</td>
+            <td>{{ compra.usuario }}</td>
             <td>{{ compra.fechaCompra }}</td>
             <td>$ {{ compra.precioTotal }}</td>
           </tr>

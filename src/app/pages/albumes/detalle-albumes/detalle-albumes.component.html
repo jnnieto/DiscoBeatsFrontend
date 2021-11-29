@@ -9,11 +9,13 @@
           <img src="../assets/images/discos.png" class="img-circle" width="100">
           <br><br>
           <h3 class="card-title">{{ album.nombre | uppercase}}</h3>
-          <h6 class="card-subtitle" *ngIf="artista">Del artista: {{ artista.nombreArtistico }}</h6>
-          <h6 class="card-subtitle" *ngIf="genero">Género: {{ genero.nombreGeneroMusical }}</h6>
-          <br><br>
+          <br>
           <p class="text-white">{{ album.descripcion }} </p>
-          <div class="card-body text-center">
+          <br>
+          <div class="card-body">
+            <h6 style="color: white" *ngIf="artista"><i class="mdi mdi-account-check"></i>{{ artista.nombreArtistico }}</h6>
+            <h6 style="color: white" *ngIf="genero"><i class="mdi mdi-bookmark-music"></i>{{ genero.nombreGeneroMusical }}</h6>
+            <h6 style="color: white" *ngIf="ventas"><i class="mdi mdi-shopping-music"></i><strong>  {{ ventas }}</strong> VENTA<span *ngIf="ventas > 1">S</span></h6>
             <small class="text-muted p-t-30 db">Escúchalo en</small>
             <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
             <button class="btn btn-circle btn-secondary"><i class="fa fa-spotify"></i></button>

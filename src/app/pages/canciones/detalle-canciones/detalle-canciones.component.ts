@@ -6,6 +6,7 @@ import { CancionService } from 'src/app/services/cancion.service';
 import { Cancion } from 'src/app/models/cancion.model';
 import { Artista } from 'src/app/models/artista.model';
 import { Album } from 'src/app/models/album.model';
+import { VentasService } from 'src/app/services/ventas.service';
 
 @Component({
   selector: 'app-detalle-canciones',
@@ -17,17 +18,20 @@ export class DetalleCancionesComponent implements OnInit {
   public cancion: Cancion;
   public artista: Artista;
   public album: Album;
+  public ventas: number;
 
   constructor(
     private cancionService: CancionService,
     private artistaService: ArtistaService,
     private albumService: AlbumService,
+    private ventasService: VentasService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe(data => {
       this.obtenerCancionPorId(data.id);
+      this.obtenerVentas(data.id);
     })
   }
 
@@ -39,6 +43,12 @@ export class DetalleCancionesComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  obtenerVentas(id: number) {
+    this.ventasService.ventasCancion(id).subscribe(data => {
+      this.ventas = data.ventas
+    })
   }
 
   obtenerAlbumCancion(id: number) {

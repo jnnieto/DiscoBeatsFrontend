@@ -10,6 +10,8 @@ export class Album {
   public precio: number;
   public nombreArtistico?: string;
   public nombreGeneroMusical?: string;
+  public fueComprado?: boolean;
 
-  constructor( album?: Album ) {}
+  constructor( album?: Album ) {
+  }
 }

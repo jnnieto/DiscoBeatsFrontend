@@ -12,7 +12,9 @@ export class Cancion {
   public reproducciones: number;
   public precio: number;
   public imagen?: File;
+  public fueComprado?: boolean;
 
-  constructor(cancion?: Cancion) { }
+  constructor(cancion?: Cancion) {
+  }
 
 }

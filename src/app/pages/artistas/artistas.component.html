@@ -126,7 +126,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success waves-effect waves-light" (click)="agregarNuevoArtista()">Agregar
+        <button type="button" class="btn btn-success waves-effect waves-light" [disabled]="formArtistas.invalid" (click)="agregarNuevoArtista()">Agregar
           artista</button>
       </div>
     </div>

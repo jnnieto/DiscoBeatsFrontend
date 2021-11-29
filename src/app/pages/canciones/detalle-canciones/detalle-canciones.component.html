@@ -4,14 +4,17 @@
     <div class="card" >
       <img class="card-img" src="../assets/images/background/socialcancionbg.jpg" alt="Card image">
       <div class="card-img-overlay card-inverse social-profile d-flex text-center">
-        <div class="align-self-center">
+        <div class="align-self-center" *ngIf="cancion">
           <img src="../assets/images/canciones.png" width="90%">
           <br><br><br>
           <h3 class="card-title">{{ cancion.nombre | uppercase}}</h3>
           <br><br>
-          <h5 class="text-white">Duración: {{ cancion.duracion }} </h5>
-          <h5 class="text-white">Fecha de Lanzamiento: {{ cancion.fechaLanzamiento | date : 'dd-MM-yyyy' }} </h5>
-          <h6 class="text-white">Número de reproducciones: {{ cancion.reproducciones }} </h6>
+          <div>
+            <h6 class="text-white"><i class="mdi mdi-timer"></i>Duración {{ cancion.duracion }} </h6>
+            <h6 class="text-white"><i class="mdi mdi-calendar"></i>Fecha de Lanzamiento {{ cancion.fechaLanzamiento | date : 'dd-MM-yyyy' }} </h6>
+            <h6 class="text-white"><i class="mdi mdi-bookmark-music"></i> {{ cancion.reproducciones }} REPRODUCCIONES</h6>
+            <h6 class="text-white" *ngIf="ventas"><i class="mdi mdi-shopping-music"></i><strong>  {{ ventas }}</strong> VENTA<span *ngIf="ventas > 1">S</span></h6>
+          </div>
           <div class="card-body text-center">
             <small class="text-muted p-t-30 db">Escúchala en</small>
             <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
@@ -34,7 +37,7 @@
       <!-- Tab panes -->
       <div class="tab-content" style="background-color:#23286b6e">
         <div class="tab-pane active" id="home" role="tabpanel">
-          <div class="card-body">
+          <div class="card-body" *ngIf="artista">
             <div class="profiletimeline">
               <div class="sl-item">
                 <div class="sl-left">
@@ -57,7 +60,7 @@
         </div>
         <!--second tab-->
         <div class="tab-pane" id="profile" role="tabpanel">
-          <div class="card-body">
+          <div class="card-body" *ngIf="album">
             <div class="profiletimeline">
               <div class="sl-item">
                 <div class="sl-left">
